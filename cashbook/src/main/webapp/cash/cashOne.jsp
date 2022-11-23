@@ -16,14 +16,18 @@
 	int year= Integer.parseInt(request.getParameter("year"));
 	int month= Integer.parseInt(request.getParameter("month"));
 	int date= Integer.parseInt(request.getParameter("date"));
-	
-
+	String mon= ""+month;
+if(month<10){
+	mon="0"+month;
+}
     
 	   // Model 호출 : 일별 cash 목록
     CashDao cashDao = new CashDao();
-	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(year, month, loginMember.getMemberId());
+	ArrayList<HashMap<String, Object>> list = cashDao.selecetCashListByDate(loginMember.getMemberId(), year, month, date);
 	    // View : 달력출력 + 일별 cash 목록 출력
-	
+	CategoryDao categoryDao = new CategoryDao();
+	ArrayList<Category> ct= categoryDao.selectCategory();
+	    
 	
 %>
 <!DOCTYPE html>
@@ -38,23 +42,70 @@
 	<h2 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">
       <%=year%>년 <%=month%> 월
    </h2>
+   <form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
+   		<table>
+   			<tr>
+				<td>category</td>
+				<td>
+					<select name= "categoryNo">
+						<%for(Category c : ct){ %>	
+							<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%>&nbsp;
+							<%if(c.getCategoryKind().equals("지출")){%>
+							💸
+							<%}else{ %>
+							💰
+							<%} %> 
+							<%=c.getCategoryName()%></option>
+							
+						<%} %>
+					<!-- 카테고리 목록출 -->
+					</select>
+				</td>   			
+   			</tr>
+   			<tr>
+   				<td>cashdate</td>
+   				<td><input type="text" name= "cashdate" value="<%=year%>-<%=mon%>-<%=date%>" readonly="readonly"></td>
+   			</tr>
+   			<tr>
+   				<td>cashPrice</td>
+   				<td><input type="text" name= "cashPrice"></td>
+   			</tr>
+   			<tr>
+   				<td>cashMemo</td>
+   				<td>
+   					<textarea rows="3" cols="50" name="cashMemo"></textarea>
+   				</td>
+   			</tr>
+   		</table>
+   			<button type="submit" class="btn btn-outline-primary btn-lg">추가</button>      
+   </form>
    <div>
    	<br>
    	<br>
    	<table class="table table-bordered align-middle">
+   		<tr>
+   			<th>categoryKind</th>
+   			<th>categoryName</th>
+   			<th>cashPrice</th>
+   			<th>cashMemo</th>
+   			<th>수정</th>
+   			<th>삭제 </th>
+   		</tr>
    		<%for(HashMap<String, Object> m : list){ %>  
          <tr>  		
-            <% String cdate= (String)m.get("cashdate");
-         		if(Integer.parseInt(cdate.substring(8))==date){%>
-         			<td><%=m.get("categoryName")%><br></td>
-					<td><%=m.get("categoryKind")%><br></td>
-					<td><%=m.get("cashMemo")%><br></td>
-					<td><%=m.get("cashPrice")+"원"%></td>
-					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashUpdateForm.jsp?cashNo=<%=m.get("cashNo")%>&year=<%=year%>&month=<%=month%>'">수정</button>      
-   					<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/deleteCashAction.jsp?cashNo=<%=m.get("cashNo")%>&year=<%=year%>&month=<%=month%>'">삭제 </button> </td>        
-	
-         	<%} %>
-         	
+         		<td><%=m.get("categoryName")%><br></td>
+				<td>
+				<%if(m.get("categoryKind").equals("지출")){%>
+							💸
+							<%}else{ %>
+							💰
+							<%} %> 
+				<%=m.get("categoryKind")%>
+				<br></td>
+				<td><%=m.get("cashPrice")+"원"%><br></td>
+				<td><%=m.get("cashMemo")%><br></td>
+				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashUpdateForm.jsp?cashNo=<%=m.get("cashNo")%>&year=<%=year%>&month=<%=month%>'">수정</button> </td>     
+   				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/deleteCashAction.jsp?cashNo=<%=m.get("cashNo")%>&year=<%=year%>&month=<%=month%>'">삭제 </button> </td>        
          </tr>
         <%}%>
     </table>    

@@ -1,46 +1,52 @@
 package dao;
 import java.sql.*;
 import util.*;
+import java.net.URLEncoder;
 import vo.Member;
 
 public class MemberDao {
 	
-	public int deleteMember(int memberNo) throws Exception{
+	public String deleteMember(String memberId, String memberPw) throws Exception{
 		
 		Dbutil db = new Dbutil();
 		Connection conn = db.getConnection();
 		
-		String sql= "DELETE FROM member WHERE member_no=?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, memberNo);
 		
-		stmt.executeUpdate();
-		String msg="삭제성공";
+		String msg=URLEncoder.encode("비밀번호를 확인해주세요  ","utf-8");
+		String target="/member/deleteMemberForm.jsp?msg="+msg;
 		
-		return 1;
+		
+		String sql = "SELECT member_id FROM member WHERE member_id= ? AND member_pw= PASSWORD(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql); 
+		stmt.setString(1, memberId);
+		stmt.setString(2, memberPw);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			String sql1 = "DELETE FROM member WHERE member_id= ?;";
+			PreparedStatement stmt1 = conn.prepareStatement(sql1);
+			stmt1.setString(1, memberId);
+			
+			stmt1.executeUpdate();
+			
+			msg = URLEncoder.encode(" 회원탈퇴 완료 안녕히  ","utf-8");
+			target="/loginForm.jsp?msg="+msg;
+			
+			stmt1.close();
+			stmt.close();
+			rs.close();
+			conn.close();
+			return target;
+			
+		}		
+		stmt.close();
+		rs.close();
+		conn.close();
+		
+		return target;
+				
 	}
 	
 	
-	public int insertMember(Member paramMember) throws Exception {
-		
-		
-		
-		Dbutil db= new Dbutil();
-		
-		Connection conn = db.getConnection();
-		
-		String sql= "INSERT INTO member(member_id, member_pw, member_name, createdate) VALUES (?, PASSWORD(?), ?, CURDATE())";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, paramMember.getMemberId());
-		stmt.setString(2, paramMember.getMemberPw());
-		stmt.setString(3, paramMember.getMemberName());
-		
-		stmt.executeQuery();
-		
-		
-		
-		return 1;
-	}
  	
 	public Member login(Member paramMember) throws Exception {
 		
@@ -72,7 +78,93 @@ public class MemberDao {
 		return resultMember;
 	}
 	
-	
-	
-	
+	public String insertMember(String memberId, String memberPw, String memberName) throws Exception{
+			
+		Dbutil db = new Dbutil();
+		Connection conn = db.getConnection();
+		
+		
+		String msg=URLEncoder.encode("회원가입 성공 ","utf-8");
+		String target="/loginForm.jsp?msg="+msg;
+		
+		
+		String sql = "SELECT member_id FROM member WHERE member_id= ?";
+		PreparedStatement stmt = conn.prepareStatement(sql); 
+		stmt.setString(1, memberId);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			msg = URLEncoder.encode("아이디가 중복되었습니다 ","utf-8");
+			target="/insertMemberForm.jsp?msg="+msg;
+			
+			stmt.close();
+			rs.close();
+			conn.close();
+			return target;
+		}
+		
+		
+		String sql1 = "INSERT INTO member("
+				+ "member_id,"
+				+ "member_pw,"
+				+ "member_name,"
+				+ "updatedate,"
+				+ "createdate) values (?, PASSWORD(?), ?, curdate(), curdate())";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1);
+		stmt1.setString(1, memberId);
+		stmt1.setString(2, memberPw);
+		stmt1.setString(3, memberName);
+		
+		stmt1.executeUpdate();
+		
+		stmt1.close();
+		stmt.close();
+		rs.close();
+		conn.close();
+		
+		return target;
+				
+		}
+	public Member memberOneList(String memberId) throws Exception {
+		
+		Member member= new Member();
+		
+		Dbutil db = new Dbutil();
+		Connection conn = db.getConnection();
+		
+		String sql= "SELECT * FROM member WHERE member_id= ?;";
+		
+		PreparedStatement stmt= conn.prepareStatement(sql); 
+		stmt.setString(1, memberId);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			member.setMemberName(rs.getString("member_name"));
+			member.setCreatedate(rs.getString("createdate"));
+			
+		}
+		
+		stmt.close();
+		rs.close();
+		conn.close();
+		return member;
+	}
+	public String memberUpdate(String memberId, String memberName) throws Exception{
+		Dbutil db = new Dbutil();
+		Connection conn = db.getConnection();
+		
+		String sql="UPDATE member SET member_name= ? WHERE member_id=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, memberName);
+		stmt.setString(2, memberId);
+		stmt.executeUpdate();
+		
+		String msg=URLEncoder.encode("수정완료  ","utf-8");
+		String target="/member/memberOne.jsp?msg="+msg;
+		
+		stmt.close();
+		
+		conn.close();
+		
+		return target;
+	}
 }
+	

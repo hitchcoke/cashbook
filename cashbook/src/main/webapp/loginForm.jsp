@@ -24,10 +24,12 @@
 			<input type="password" class="form-control" name="memberPw"><br>
 		<button type="submit" class="btn btn-outline-primary">login</button>
 	</form>
+	<br>
+	<div> <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/insertMemberForm.jsp'">회원가입 </button></div>
 <%
 	if(request.getParameter("msg")!=null){
 %>
-	<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
+	<br><div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
 <%
 }%>	
 </body>

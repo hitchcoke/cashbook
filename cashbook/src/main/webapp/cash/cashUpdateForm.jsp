@@ -14,6 +14,9 @@ if(session.getAttribute("resultMember")==null){
 
 Member loginMember = (Member)session.getAttribute("resultMember"); 	
 
+CategoryDao categoryDao = new CategoryDao();
+ArrayList<Category> ct= categoryDao.selectCategory();
+
 request.setCharacterEncoding("utf-8");
 int cashNo= Integer.parseInt(request.getParameter("cashNo"));
 int year = Integer.parseInt(request.getParameter("year"));
@@ -52,6 +55,19 @@ System.out.println(year+""+month);
 	<br>
 	<form action="<%=request.getContextPath()%>/cash/cashUpdateAction.jsp" method="post">
 		<div class="container">
+		<select name= "categoryNo">
+						<%for(Category c : ct){ %>	
+							<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%>&nbsp;
+							<%if(c.getCategoryKind().equals("지출")){%>
+							💸
+							<%}else{ %>
+							💰
+							<%} %> 
+							<%=c.getCategoryName()%></option>
+							
+						<%} %>
+					<!-- 카테고리 목록출 -->
+					</select><br>
 		<label for="exampleFormControlInput1" class="form-label">&nbsp;내용 </label>
   			<input type="text" class="form-control" name="cashMemo"><!-- plaecholder로 들어갈 부서넘버의 예시를 알려준다 -->
   		<label for="exampleFormControlInput1" class="form-label">&nbsp;비용 </label>

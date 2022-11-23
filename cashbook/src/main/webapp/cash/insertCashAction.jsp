@@ -10,20 +10,20 @@
 <%
 	
 	 request.setCharacterEncoding("utf-8"); //인코딩
-	 int cashNo= Integer.parseInt(request.getParameter("cashNo"));
+	 String cashdate= request.getParameter("cashdate");
 	 String cashMemo= request.getParameter("cashMemo");
 	 String cashPrice= request.getParameter("cashPrice");
-	 int year = Integer.parseInt(request.getParameter("year"));
-	 int month = Integer.parseInt(request.getParameter("month"));
-	 System.out.println(year+""+month);
+	 System.out.println(cashdate);
 	 Member loginMember = (Member)session.getAttribute("resultMember"); 	
 	 int categoryNo= Integer.parseInt(request.getParameter("categoryNo"));
 	 
 	 CashDao cashdao= new CashDao();
-	 cashdao.updateCash(cashNo, cashMemo, cashPrice, categoryNo);
-	 
+	 cashdao.insertCash(cashdate, cashMemo, cashPrice, categoryNo, loginMember.getMemberId());
+	
 	 //2016-04-05
-	 
+	 String year= cashdate.substring(0, 4);
+	 int month= Integer.parseInt(cashdate.substring(5, 7));
+
 	 
 	 
 	 response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp?year="+year+"&month="+(month-1));

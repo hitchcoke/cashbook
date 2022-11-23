@@ -79,11 +79,14 @@
 	<br>
     <div>
       <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>'">저번 달</button>      
-      <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>'">다음 달</button> &nbsp;&nbsp;&nbsp;<%=loginMember.getMemberName()%>님 반갑습니다 </div>
+      <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>'">다음 달</button> &nbsp;&nbsp;&nbsp;</div>
    <h2 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">
       <%=year%>년 <%=month+1%> 월
    </h2>
    <div>
+   <div><%=loginMember.getMemberName()%>님 반갑습니다 &nbsp; &nbsp; &nbsp;
+   	<button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/member/memberOne.jsp'">내 정보</button>      
+     </div>
       <!-- 달력 -->
       <table class="table table-bordered align-middle">
          <tr class="mt-4 p-5 bg-primary text-white rounded">
@@ -108,7 +111,12 @@
                        			 if(Integer.parseInt(cdate.substring(8))==date){%>
 				
 									 <%=m.get("categoryName")%><br>
-								   	 <%=m.get("categoryKind")%><br>
+								   	 
+								   	 <%if(m.get("categoryKind").equals("지출")){%>
+										💸
+									<%}else{ %>
+										💰
+									<%} %> <%=m.get("categoryKind")%><br>
 									 <%=m.get("cashPrice")+"원"%>
                        				 
             <%           				 
