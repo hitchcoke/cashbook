@@ -1,8 +1,11 @@
 package dao;
 import java.sql.*;
+
 import util.*;
 import java.net.URLEncoder;
 import vo.Member;
+import java.util.*;
+
 
 public class MemberDao {
 	//	반환값의 의미는 true 시 존재, false 시 사용가 
@@ -22,6 +25,77 @@ public class MemberDao {
 			return result;
 			
 	}
+	
+	public String deleteMemberByAdmin(String memberId, String adminId) throws Exception{
+		
+		Dbutil db = new Dbutil();
+		Connection conn = db.getConnection();
+		
+		
+		
+		String sql2 ="SELECT member_level FROM member WHERE member_id=?";
+		PreparedStatement stmt2 = conn.prepareStatement(sql2);
+		stmt2.setString(1, adminId);
+		ResultSet rs2 = stmt2.executeQuery();
+		
+		if(rs2.next()) {
+			if(rs2.getInt("member_level")==1) {
+				String sql1 = "DELETE FROM member WHERE member_id= ?;";
+				PreparedStatement stmt1 = conn.prepareStatement(sql1);
+				stmt1.setString(1, memberId);
+				
+				stmt1.executeUpdate();
+				
+				stmt1.close();
+				conn.close();
+				System.out.println("성공 ");
+				return "성공";
+			}
+
+			System.out.println("실");
+		}
+		conn.close();
+		stmt2.close();
+		rs2.close();
+		return "실패";
+	}
+	
+	public String updateLevelAction(String memberId, String adminId, int memberLevel) throws Exception{
+		
+		Dbutil db = new Dbutil();
+		Connection conn = db.getConnection();
+		
+		
+		
+		String sql2 ="SELECT member_level FROM member WHERE member_id=?";
+		PreparedStatement stmt2 = conn.prepareStatement(sql2);
+		stmt2.setString(1, adminId);
+		ResultSet rs2 = stmt2.executeQuery();
+		
+		if(rs2.next()) {
+			if(rs2.getInt("member_level")==1) {
+				String sql1 = "UPDATE member SET member_level= ?, updatedate= now() WHERE member_id=?";;
+				PreparedStatement stmt1 = conn.prepareStatement(sql1);
+				stmt1.setInt(1, memberLevel);
+				stmt1.setString(2, memberId);
+				
+				stmt1.executeUpdate();
+				
+				stmt1.close();
+				conn.close();
+
+				System.out.println("성공 ");
+				return "성공";
+			}
+
+			System.out.println("실패  ");
+		}
+		conn.close();
+		stmt2.close();
+		rs2.close();
+		return "실패";
+	}
+	
 	
 	public String deleteMember(String memberId, String memberPw) throws Exception{
 		
@@ -170,7 +244,7 @@ public class MemberDao {
 		Dbutil db = new Dbutil();
 		Connection conn = db.getConnection();
 		
-		String sql="UPDATE member SET member_name= ? WHERE member_id=?";
+		String sql="UPDATE member SET member_name= ?, updatedate= now() WHERE member_id=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, memberName);
 		stmt.setString(2, memberId);
@@ -184,6 +258,49 @@ public class MemberDao {
 		conn.close();
 		
 		return target;
+	}
+	
+	public ArrayList<Member> selecetMemberList(int beginRow, int rowPerPage) throws Exception {
+		ArrayList<Member> list = new ArrayList<Member>();
+		Dbutil db = new Dbutil();
+		Connection conn = db.getConnection();
+		
+		String sql ="SELECT * FROM member ORDER BY createdate DESC LIMIT ?,?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			Member m = new Member();
+			m.setMemberId(rs.getString("member_id"));
+			m.setMemberLevel(rs.getInt("member_level"));
+			m.setMemberName(rs.getString("member_name"));
+			m.setCreatedate(rs.getString("createdate"));
+			m.setMemberNo(rs.getInt("member_no"));
+			m.setUpdatedate(rs.getString("updatedate"));
+			list.add(m);
+		}
+		
+		return list;
+	}
+	public int selectMemberCount(int rowPerPage) throws Exception{
+		int count=0;
+		Dbutil db =new Dbutil();
+		Connection conn = db.getConnection();
+		String sql = "SELECT COUNT(*) FROM member;";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		ResultSet rs= stmt.executeQuery();
+		if(rs.next()) {
+			count=rs.getInt("count(*)");
+		}
+		int lastPage= count/rowPerPage;
+		if(count%rowPerPage!=0) {
+			lastPage+=1;
+		}
+		
+		return lastPage;
 	}
 }
 	

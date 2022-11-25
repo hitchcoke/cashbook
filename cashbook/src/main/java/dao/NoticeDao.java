@@ -46,4 +46,83 @@ public class NoticeDao{
 			
 		return list;
 	}
+	
+	public int deleteNotice(int noticeNo) throws Exception {
+		Dbutil dbutil = new Dbutil();
+		Connection conn = dbutil.getConnection();
+		
+		String sql="DELETE FROM notice WHERE notice_no=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, noticeNo);
+
+		
+		stmt.executeUpdate();
+		
+		stmt.close();
+		conn.close();
+		
+		
+		return 1;
+	}
+	
+	public int insertNotice(String noticeMemo) throws Exception{
+		Dbutil db = new Dbutil();
+		Connection conn = db.getConnection();
+		
+		String sql = "INSERT INTO notice(notice_memo, createdate, updatedate) VALUES (?,now(),now()) ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, noticeMemo);
+		
+		stmt.executeUpdate();
+		stmt.close();
+		conn.close();
+		
+		return 1;
+	}
+	
+	public int updatNotice(String noticeMemo, int noticeNo) throws Exception {
+		
+		Dbutil db = new Dbutil();
+		Connection conn = db.getConnection();
+		
+		String sql = "UPDATE notice SET notice_memo= ? WHERE notice_no=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, noticeMemo);
+		stmt.setInt(2, noticeNo);
+		
+		stmt.executeUpdate();
+		
+		stmt.close();
+		conn.close();
+		
+		
+		return 1;
+	}
+	public Notice noticeOneList(String noticeNo) throws Exception {
+		
+		Notice notice= new Notice();
+		
+		Dbutil db = new Dbutil();
+		Connection conn = db.getConnection();
+		
+		String sql= "SELECT * FROM notice WHERE notice_no= ?;";
+		
+		PreparedStatement stmt= conn.prepareStatement(sql); 
+		stmt.setString(1, noticeNo);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			notice.setNoticeMemo(rs.getString("notice_memo"));
+			notice.setNoticeNo(rs.getInt("notice_no"));
+			notice.setCreatedate(rs.getString("createdate"));
+			notice.setUpdatedate(rs.getString("updatedate"));
+			
+		}
+		
+		stmt.close();
+		rs.close();
+		conn.close();
+		return notice;
+	}
+	
+	
 }

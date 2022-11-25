@@ -7,9 +7,9 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-
 	Member loginMember = (Member)session.getAttribute("resultMember"); 	
 
+	
  	String memberPw= request.getParameter("memberPw");
  	MemberDao memberdao = new MemberDao();
  	String targetpage= memberdao.deleteMember(loginMember.getMemberId(), memberPw);
