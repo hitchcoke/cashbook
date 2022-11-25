@@ -1,13 +1,22 @@
 package vo;
 
 public class Member {
+	
+	//필드 , 맴버변수, 객체변수, 속 성
 	private int memberNo;
 	private String memberId;
 	private String memberPw;
 	private String memberName;
 	private String createdate;
 	private String updatedate;
+	private int memberLevel;
 	
+	public int getMemberLevel() {
+		return memberLevel;
+	}
+	public void setMemberLevel(int memberLevel) {
+		this.memberLevel = memberLevel;
+	}
 	public int getMemberNo() {
 		return memberNo;
 	}

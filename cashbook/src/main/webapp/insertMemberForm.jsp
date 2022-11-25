@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<h1 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">회원가입 </h1>
+<h1 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">SIGN IN </h1>
 	<br>
 	<br>
 	<form action="<%=request.getContextPath()%>/insertMemberAction.jsp" method="post">

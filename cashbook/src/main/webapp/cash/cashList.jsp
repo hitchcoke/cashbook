@@ -78,14 +78,18 @@
 <body>
 	<br>
     <div>
-      <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>'">저번 달</button>      
-      <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>'">다음 달</button> &nbsp;&nbsp;&nbsp;</div>
+      <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>'">저번 달</button>      
+      <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>'">다음 달</button> &nbsp;&nbsp;&nbsp;</div>
    <h2 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">
       <%=year%>년 <%=month+1%> 월
    </h2>
    <div>
    <div><%=loginMember.getMemberName()%>님 반갑습니다 &nbsp; &nbsp; &nbsp;
-   	<button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/member/memberOne.jsp'">내 정보</button>      
+   <% if(loginMember.getMemberLevel()==1){ %> 
+   <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/adminMain.jsp'">관리자모드 </button>&nbsp;
+   <%} %>    
+   	<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/member/memberOne.jsp'">내 정보</button>&nbsp;
+   	<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/logout.jsp'">로그아웃 </button>    
      </div>
       <!-- 달력 -->
       <table class="table table-bordered align-middle">
@@ -117,7 +121,7 @@
 									<%}else{ %>
 										💰
 									<%} %> <%=m.get("categoryKind")%><br>
-									 <%=m.get("cashPrice")+"원"%>
+									 <%=m.get("cashPrice")+"원"%><br>
                        				 
             <%           				 
                        			 }        
@@ -143,6 +147,6 @@
 	<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
 <%
 }%>	
-   <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/logout.jsp'">로그아웃 </button>
+
 </body>
 </html>

@@ -13,7 +13,9 @@ public class CashDao {
 		
 		
 		
-		String sql="SELECT * FROM cash c INNER JOIN category ct ON c.category_no = ct.category_no WHERE c.member_id = ? AND YEAR(c.cash_date)=? AND MONTH(c.cash_date)=? ORDER BY c.cash_date;";
+		String sql="SELECT * FROM cash c INNER JOIN category ct ON c.category_no = ct.category_no "
+				+ " WHERE c.member_id = ? AND YEAR(c.cash_date)=? AND MONTH(c.cash_date)=? "
+				+ " ORDER BY c.cash_date;";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, memberId);
 		stmt.setInt(2, year);
@@ -40,13 +42,14 @@ public class CashDao {
 		
 		return list;
 	}
-	public int deleteCash(int cashNo) throws Exception {
+	public int deleteCash(int cashNo, String memberId) throws Exception {
 		Dbutil dbutil = new Dbutil();
 		Connection conn = dbutil.getConnection();
 		
-		String sql="DELETE FROM cash WHERE cash_no=?";
+		String sql="DELETE FROM cash WHERE cash_no=? AND member_id=? ";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, cashNo);
+		stmt.setString(2, memberId);
 		
 		stmt.executeUpdate();
 		
@@ -83,7 +86,9 @@ public class CashDao {
 		
 		
 		
-		String sql="SELECT * FROM cash c INNER JOIN category ct ON c.category_no = ct.category_no WHERE c.member_id = ? AND YEAR(c.cash_date)=? AND MONTH(c.cash_date)=? AND DAY(c.cash_date)= ? ORDER BY c.cash_date;";
+		String sql="SELECT * FROM cash c INNER JOIN category ct ON c.category_no = ct.category_no "
+				+ " WHERE c.member_id = ? AND YEAR(c.cash_date)=? AND MONTH(c.cash_date)=? AND DAY(c.cash_date)= ? "
+				+ " ORDER BY c.cash_date;";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, memberId);
 		stmt.setInt(2, year);
@@ -93,7 +98,9 @@ public class CashDao {
 		
 		
 		while(rs.next()) {
+			
 			HashMap<String, Object> m = new HashMap<String, Object>();
+			
 				m.put("cashMemo", rs.getString("c.cash_memo"));
 				m.put("cashPrice", rs.getString("c.cash_price"));
 				m.put("cashdate", rs.getString("c.cash_date"));

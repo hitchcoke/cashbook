@@ -5,6 +5,23 @@ import java.net.URLEncoder;
 import vo.Member;
 
 public class MemberDao {
+	//	반환값의 의미는 true 시 존재, false 시 사용가 
+	public boolean selectMemberIdCk(String memberId) throws Exception {
+			boolean result = false;
+			Dbutil db = new Dbutil();
+			Connection conn = db.getConnection();
+			
+			String sql = "SELECT member_id FROM member WHERE member_id = ?"+memberId;
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				result = true;
+			}
+			Dbutil dbb = new Dbutil();
+			dbb.close(rs, stmt, conn);
+			return result;
+			
+	}
 	
 	public String deleteMember(String memberId, String memberPw) throws Exception{
 		
@@ -68,7 +85,7 @@ public class MemberDao {
 			resultMember.setMemberName(rs.getString("member_name"));
 			resultMember.setMemberNo(rs.getInt("member_no"));
 			resultMember.setMemberId(rs.getString("member_id"));
-		}
+			resultMember.setMemberLevel(rs.getInt("member_level"));		}
 		
 		
 		rs.close();
@@ -122,8 +139,10 @@ public class MemberDao {
 		conn.close();
 		
 		return target;
-				
+			
 		}
+	
+	
 	public Member memberOneList(String memberId) throws Exception {
 		
 		Member member= new Member();
