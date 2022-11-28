@@ -4,7 +4,8 @@
 <%@ page import="java.util.*" %><%@ page import="dao.*" %>
     
 <%
-	
+		
+
  	int noticeNo= Integer.parseInt(request.getParameter("noticeNo")); 
 	String currentPage= request.getParameter("currentPage");
 

@@ -7,7 +7,7 @@
 	Member loginMember = (Member)session.getAttribute("resultMember");
 	if(loginMember==null|| loginMember.getMemberLevel() < 1 ){
 	String msg = URLEncoder.encode("권한이 없습니다 ","utf-8");
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg"+msg);
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);
 	return;
 	}
  	
@@ -49,5 +49,12 @@
 		<br>
 		&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-outline-primary">확인</button>
 	</form>
+	<%
+		if(request.getParameter("msg")!=null){
+	%>
+		<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
+	<% 			
+		}
+	%>
 </body>
 </html>

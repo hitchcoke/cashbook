@@ -36,11 +36,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<ul>
-		<li><a href="<%=request.getContextPath()%>/admin/noticeList.jsp">공지관리</a></li>
-		<li><a href="<%=request.getContextPath()%>/admin/categoryList.jsp">카테고리관리</a></li>
-		<li>멤버관리 </li>
-	</ul>
+<div>
+		<jsp:include page="./adminMenu.jsp"></jsp:include> 
+		<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
+</div>
+
 <h2 style=  "text-align:center">멤버관리 </h2>
 	<br>
 	<div>
@@ -70,12 +70,19 @@
 							<option value="0">일반 </option>
 							<option value="1">관리자 </option>
 						</select>
-						<button type="submit">권한 수정</button>   					
+						<button type="submit" class="btn btn-outline-primary">권한 수정</button>   					
    				</form></td>   
 			</tr>	
 			<%}
 			}%>	
 		</table>
+	<%
+		if(request.getParameter("msg")!=null){
+	%>
+		<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
+	<% 			
+		}
+	%>
 	<div>
 		<nav aria-label="Page navigation example">
   			<ul class="pagination justify-content-center pagination-lg">
@@ -104,5 +111,6 @@
  	   		</ul>
 	   </nav></div>
 	</div>
+	<button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/logout.jsp'">로그아웃 </button>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
 <%
 	
+	
 	 request.setCharacterEncoding("utf-8"); //인코딩
 	 int cashNo= Integer.parseInt(request.getParameter("cashNo"));
 	 String cashMemo= request.getParameter("cashMemo");
@@ -18,6 +19,14 @@
 	 System.out.println(year+""+month);
 	 Member loginMember = (Member)session.getAttribute("resultMember"); 	
 	 int categoryNo= Integer.parseInt(request.getParameter("categoryNo"));
+	 
+	 if(request.getParameter("cashMemo")==null||request.getParameter("cashMemo").equals("")||
+		request.getParameter("cashPrice")==null||request.getParameter("cashPrice").equals("")){
+		String msg = URLEncoder.encode("내용을 채워주세요  ","utf-8"); // get방식 주소창에 문자열 인코딩
+		response.sendRedirect(request.getContextPath()+"/updateNoticeForm.jsp?msg="+msg+"&year="+year+"&month="+month+"&cashNo="+cashNo);
+		return;	
+		}
+	 
 	 
 	 CashDao cashdao= new CashDao();
 	 cashdao.updateCash(cashNo, cashMemo, cashPrice, categoryNo);

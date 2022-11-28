@@ -40,54 +40,16 @@ if(month<10){
 </head>
 <body>
 	<h2 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">
-      <%=year%>년 <%=month%> 월
+      <%=year%>년 <%=month%> 월 <%=date %>일  
    </h2>
-   <form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
-   		<table>
-   			<tr>
-				<td>category</td>
-				<td>
-					<select name= "categoryNo">
-						<%for(Category c : ct){ %>	
-							<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%>&nbsp;
-							<%if(c.getCategoryKind().equals("지출")){%>
-							💸
-							<%}else{ %>
-							💰
-							<%} %> 
-							<%=c.getCategoryName()%></option>
-							
-						<%} %>
-					<!-- 카테고리 목록출 -->
-					</select>
-				</td>   			
-   			</tr>
-   			<tr>
-   				<td>cashdate</td>
-   				<td><input type="text" name= "cashdate" value="<%=year%>-<%=mon%>-<%=date%>" readonly="readonly"></td>
-   			</tr>
-   			<tr>
-   				<td>cashPrice</td>
-   				<td><input type="text" name= "cashPrice"></td>
-   			</tr>
-   			<tr>
-   				<td>cashMemo</td>
-   				<td>
-   					<textarea rows="3" cols="50" name="cashMemo"></textarea>
-   				</td>
-   			</tr>
-   		</table>
-   			<button type="submit" class="btn btn-outline-primary btn-lg">추가</button>      
-   </form>
    <div>
    	<br>
-   	<br>
    	<table class="table table-bordered align-middle">
-   		<tr>
-   			<th>categoryKind</th>
-   			<th>categoryName</th>
-   			<th>cashPrice</th>
-   			<th>cashMemo</th>
+   		<tr class="mt-4 p-5 bg-primary text-white rounded">
+   			<th>카테고리 종류 </th>
+   			<th>카테고리 이름 </th>
+   			<th>액수 </th>
+   			<th>메모 </th>
    			<th>수정</th>
    			<th>삭제 </th>
    		</tr>
@@ -109,6 +71,48 @@ if(month<10){
          </tr>
         <%}%>
     </table>    
-   </div>
+   </div><br>
+   	<div class="container">
+		<div class="col-6 mx-auto">
+		<h1>가계부 추가 </h1>
+		   <form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
+		   		<table>
+		   			<tr>
+						<td>카테고리 </td>
+						<td>
+							<select name= "categoryNo">
+								<%for(Category c : ct){ %>	
+									<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%>&nbsp;
+									<%if(c.getCategoryKind().equals("지출")){%>
+									💸
+									<%}else{ %>
+									💰
+									<%} %> 
+									<%=c.getCategoryName()%></option>
+									
+								<%} %>
+							<!-- 카테고리 목록출 -->
+							</select>
+						</td>   			
+		   			</tr>
+		   			<tr>
+		   				<td>날짜 </td>
+		   				<td><input type="text" name= "cashdate" class="form-control" value="<%=year%>-<%=mon%>-<%=date%>" readonly="readonly"></td>
+		   			</tr>
+		   			<tr>
+		   				<td>액수 </td>
+		   				<td><input type="text" name= "cashPrice" class="form-control"></td>
+		   			</tr>
+		   			<tr>
+		   				<td>메모 </td>
+		   				<td>
+		   					<textarea rows="3" cols="50" name="cashMemo" class="form-control"></textarea>
+		   				</td>
+		   			</tr>
+		   		</table>
+		   			<button type="submit" class="btn btn-outline-primary btn-lg">추가</button>      
+		   </form>
+		</div>
+	</div>
 </body>
 </html>

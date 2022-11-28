@@ -9,7 +9,7 @@
 	Member loginMember = (Member)session.getAttribute("resultMember");
 	if(loginMember==null|| loginMember.getMemberLevel() < 1 ){
 		String msg = URLEncoder.encode("권한이 없습니다 ","utf-8");
-  		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg"+msg);
+  		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);
 		return;
 	}
 	
@@ -36,11 +36,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<ul>
-		<li>공지관리</li>
-		<li><a href="<%=request.getContextPath()%>/admin/categoryList.jsp">카테고리관리</a></li>
-		<li><a href="<%=request.getContextPath()%>/admin/memberList.jsp">멤버관리</a></li>
-	</ul>
+<div>
+		<jsp:include page="./adminMenu.jsp"></jsp:include> 
+		<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
+</div>
+
 <h2 style=  "text-align:center">공지사항 관리 </h2>
 	<br>
 	<div>
@@ -89,6 +89,17 @@
 	   </nav></div>
 	</div>
 	
-	<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/insertNoticeForm.jsp?currentPage=<%=currentPage%>'">글쓰기 </button>
+	
+	<%
+		if(request.getParameter("msg")!=null){
+	%>
+		<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
+	<% 			
+		}
+	%>
+	
+	<button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/admin/insertNoticeForm.jsp?currentPage=<%=currentPage%>'">공지 작성 </button>
+	<button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/logout.jsp'">로그아웃 </button>
+	
 </body>
 </html>
