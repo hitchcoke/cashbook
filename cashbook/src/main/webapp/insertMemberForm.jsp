@@ -24,7 +24,7 @@
 	<br>
 	<form action="<%=request.getContextPath()%>/insertMemberAction.jsp" method="post">
 		<div class="container">
-		<label for="exampleFormControlInput1" class="form-label">&nbsp;id</label>
+		<label for="exampleFormControlInput1" class="form-label">&nbsp;iddd</label>
   			<input type="text" class="form-control" name="memberId"><!-- plaecholder로 들어갈 부서넘버의 예시를 알려준다 -->
   		<label for="exampleFormControlInput1" class="form-label">&nbsp;password</label>
   			<input type="password" class="form-control" name="memberPw">
