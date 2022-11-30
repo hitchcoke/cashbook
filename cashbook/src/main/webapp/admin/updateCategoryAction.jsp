@@ -16,7 +16,7 @@
  	
  	if(categoryKind==null||categoryKind.equals("")||categoryName==null||categoryName.equals("")){
  	    String msg = URLEncoder.encode("내용을 채워주세요  ","utf-8"); // get방식 주소창에 문자열 인코딩
- 	    response.sendRedirect(request.getContextPath()+"/updateNoticeForm.jsp?msg="+msg+"&categoryNo="+categoryNo);
+ 	    response.sendRedirect(request.getContextPath()+"/admin/updateCategoryForm.jsp?msg="+msg+"&categoryNo="+categoryNo);
  	    return;	
  		}
 

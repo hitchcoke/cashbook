@@ -76,80 +76,77 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <div>
-      <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>'">저번 달</button>      
-      <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>'">다음 달</button>
-      <span style="float: right;"><%=loginMember.getMemberName()%>님 반갑습니다 &nbsp; &nbsp; &nbsp;
-      <% if(loginMember.getMemberLevel()==1){ %> 
-      <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/adminMain.jsp'">관리자모드 </button>&nbsp;
-      <%} %>    
-      <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/member/memberOne.jsp'">내 정보</button>&nbsp;
-   	  <button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/logout.jsp'">로그아웃 </button></span>
-    </div>
-   <h2 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">
-      <%=year%>년 <%=month+1%> 월
-   </h2>
-  	<div>
-      <!-- 달력 -->
-      <table class="table table-bordered align-middle">
-         <tr class="mt-4 p-5 bg-primary text-white rounded">
-            <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
-         </tr>
-         <tr>
-            <%
-               for(int i=1; i<=totalTd; i++) {
-            %>
-                  <td width="10%">
-            <%
-                     int date = i-beginBlank;
-                     if(date > 0 && date <= lastDate) {
-                    	 %> 
-            	        	<a class="page-link" href="<%=request.getContextPath()%>/cash/cashOne.jsp?date=<%=date%>&year=<%=year%>&month=<%=month+1%>"><%=date%><br></a>
-            <% 
-            %>				<%for(HashMap<String, Object> m : list){ %>
-                       		
-            <%  				String cdate= (String)m.get("cashdate");
-            					
-            					
-                       			 if(Integer.parseInt(cdate.substring(8))==date){%>
-				
-									 <%=m.get("categoryName")%><br>
-								   	 
-								   	 <%if(m.get("categoryKind").equals("지출")){%>
-										💸
-									<%}else{ %>
-										💰
-									<%} %> <%=m.get("categoryKind")%><br>
-									 <%=m.get("cashPrice")+"원"%><br>
-                       				 
-            <%           				 
-                       			 }        
-                     }
-            %>
-                  </td>
-            <%
-                  
-                  if(i%7 == 0 && i != totalTd) {
-            %>
-                     </tr><tr> <!-- td7개 만들고 테이블 줄바꿈 -->
-            <%         
-                  }
-               }
-               }
-            %>
-         </tr>
-      </table>
-   </div>
+	<div>	
+		<jsp:include page="/nav.jsp"></jsp:include> 
+		<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
+	</div><br>
+   <div class="col-md-11" style="margin: auto;">
+	   <h2 style="text-align:center">
+	   <span style="float: left;">
+	   		<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>'">저번 달</button>    
+	   </span>
+	   <span><%=year%>년 <%=month+1%> 월 가계부 </span>
+	    <span style="float: right;">
+	    	<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>'">다음 달</button>
+	    </span>
+	   </h2>
+	   <br>
+	   
+	  	<div>
+	      <!-- 달력 -->
+	      <table class="table table-bordered align-middle">
+	         <tr class="mt-4 p-5 bg-primary text-white rounded">
+	            <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+	         </tr>
+	         <tr>
+	            <%
+	               for(int i=1; i<=totalTd; i++) {
+	            %>
+	                  <td width=300 height=100 style='table-layout:fixed' >
+	            <%
+	                     int date = i-beginBlank;
+	                     if(date > 0 && date <= lastDate) {
+	                    	 %> 
+	            	        	<a class="page-link" href="<%=request.getContextPath()%>/cash/cashOne.jsp?date=<%=date%>&year=<%=year%>&month=<%=month+1%>"><%=date%><br></a>
+	            <% 
+	            %>				<%for(HashMap<String, Object> m : list){ %>
+	                       		
+	            <%  				String cdate= (String)m.get("cashdate");
+	            					
+	            					
+	                       			 if(Integer.parseInt(cdate.substring(8))==date){%>
+
+									   	 <%if(m.get("categoryKind").equals("지출")){%>
+											💸
+										<%}else{ %>
+											💰
+										<%} %> 
+	                      				 
+	            <%           				 
+	                       			 }        
+	                     }
+	            %>
+	                  </td>
+	            <%
+	                  
+	                  if(i%7 == 0 && i != totalTd) {
+	            %>
+	                     </tr><tr> <!-- td7개 만들고 테이블 줄바꿈 -->
+	            <%         
+	                  }
+	               }
+	               }
+	            %>
+	         </tr>
+	      </table>
+	   </div>
+	</div>   
    <%
 	if(request.getParameter("msg")!=null){
-%>
+	%>
 	<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
-<%
-}%>	
-<div>
-		<jsp:include page="../inc/foot.jsp"></jsp:include> 
-		<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
-</div>
+	<%
+											}%>	
 
 </body>
 </html>

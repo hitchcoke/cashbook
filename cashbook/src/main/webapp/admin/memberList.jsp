@@ -30,87 +30,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>memberList</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<meta charset="UTF-8">
+	<title>memberList</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<style>
+		td{
+		text-align: center;
+		}
+	</style>
 </head>
 <body>
-<div>
-		<jsp:include page="./adminMenu.jsp"></jsp:include> 
-		<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
-</div>
-
-<h2 style=  "text-align:center">멤버관리 </h2>
-	<br>
 	<div>
-		<table class="table table-bordered align-middle">
-			<tr class="mt-4 p-5 bg-primary text-white rounded">
-				<th>멤버번호</th>
-				<th>아이디</th>
-				<th>레벨</th>
-				<th>이름</th>
-				<th>마지막수정일자</th>
-				<th colspan="3">생성일자</th>
-			</tr>
-			<%for(Member m : list){ %>
-			<tr>
-			<% if(m.getMemberId().equals(loginMember.getMemberId())!=true){%>
-				<td><%= m.getMemberNo() %></td>
-				<td><%= m.getMemberId() %></td>
-				<td><%= m.getMemberLevel() %></td>
-				<td><%= m.getMemberName() %></td>
-				<td><%= m.getUpdatedate() %></td>
-				<td><%= m.getCreatedate() %></td>			
-   				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/deleteMemberAction.jsp?memberId=<%=m.getMemberId()%>&currentPage=<%=currentPage%>'">계정삭제</button> </td>
-   				<td><form method= "post" action="<%=request.getContextPath()%>/admin/updateLevelAction.jsp">
-						<input type ="hidden" name= "memberId" value="<%=m.getMemberId()%>">
-						<input type= "hidden" name="currentPage" value="<%=currentPage %>">
-						<select name= "memberLevel">
-							<option value="0">일반 </option>
-							<option value="1">관리자 </option>
-						</select>
-						<button type="submit" class="btn btn-outline-primary">권한 수정</button>   					
-   				</form></td>   
-			</tr>	
-			<%}
-			}%>	
-		</table>
-	<%
-		if(request.getParameter("msg")!=null){
-	%>
-		<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
-	<% 			
-		}
-	%>
-	<div>
-		<nav aria-label="Page navigation example">
-  			<ul class="pagination justify-content-center pagination-lg">
-	    		<%if(currentPage > 1){%>	
-	   				<li class="page-item">
-	   				<% }else{ %>
-	   				<li class="page-item disabled"><%} %>
-	      				<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage-1%>">Previous</a>
-	    			</li>
-	    		<%if(currentPage > 1){%>	
-	    			<li class="page-item">
-	    				<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage-1%>"><%=currentPage-1%></a></li>
-	    		<%} %>
-	    			<li class="page-item active" aria-current="page">
-	    				<span class="page-link"><%=currentPage%></span></li>
-	    		<%if(currentPage < lastPage){%>		
-	    			<li class="page-item">
-	    				<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage+1%>"><%=currentPage+1%></a></li>
-	    		<%}
-	    		  if(currentPage < lastPage){%>	
-	    			<li class="page-item">
-	    		<%}else{ %>
-	    			<li class="page-item disabled"><%} %>
-	      		   		<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage+1%>">Next</a>
-	    			</li>				
- 	   		</ul>
-	   </nav></div>
+			<jsp:include page="./adminMenu.jsp"></jsp:include> 
+			<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
 	</div>
-	<button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/logout.jsp'">로그아웃 </button>
+	<br>
+	<div class="col-md-11" style="margin: auto;">
+		<h2 style=  "text-align:center">멤버관리 </h2>
+			<br>
+			<div>
+				<table class="table table-bordered align-middle">
+					<tr class="mt-4 p-5 bg-primary text-white rounded" style= "text-align: center;">
+						<th width=10%>멤버번호</th>
+						<th width=10%>아이디</th>
+						<th width=5%>레벨</th>
+						<th width=10%>이름</th>
+						<th width=20%>마지막수정일자</th>
+						<th width=20%>생성일자</th>
+						<th width=15%>권한수정</th>
+						<th width=10%>계정삭제</th>
+					</tr>
+					<%for(Member m : list){ %>
+					<tr>
+					<% if(m.getMemberId().equals(loginMember.getMemberId())!=true){%>
+						<td><%= m.getMemberNo() %></td>
+						<td><%= m.getMemberId() %></td>
+						<td><%= m.getMemberLevel() %></td>
+						<td><%= m.getMemberName() %></td>
+						<td><%= m.getUpdatedate() %></td>
+						<td><%= m.getCreatedate() %></td>
+						<td><form method= "post" action="<%=request.getContextPath()%>/admin/updateLevelAction.jsp">
+								<input type ="hidden" name= "memberId" value="<%=m.getMemberId()%>">
+								<input type= "hidden" name="currentPage" value="<%=currentPage %>">
+								<select name= "memberLevel" >
+									<option value="0">일반 </option>
+									<option value="1">관리자 </option>
+								</select>
+								<button type="submit" class="btn btn-outline-primary">권한 수정</button>   					
+		   				</form></td>   			
+		   				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/deleteMemberAction.jsp?memberId=<%=m.getMemberId()%>&currentPage=<%=currentPage%>'">계정삭제</button> </td>   
+					</tr>	
+					<%}
+					}%>	
+				</table>
+			
+			<br>
+			<div>
+				<nav aria-label="Page navigation example">
+		  			<ul class="pagination justify-content-center">
+			    		<%if(currentPage > 1){%>	
+			   				<li class="page-item">
+			   				<% }else{ %>
+			   				<li class="page-item disabled"><%} %>
+			      				<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage-1%>">Previous</a>
+			    			</li>
+			    		<%if(currentPage > 1){%>	
+			    			<li class="page-item">
+			    				<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage-1%>"><%=currentPage-1%></a></li>
+			    		<%} %>
+			    			<li class="page-item active" aria-current="page">
+			    				<span class="page-link"><%=currentPage%></span></li>
+			    		<%if(currentPage < lastPage){%>		
+			    			<li class="page-item">
+			    				<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage+1%>"><%=currentPage+1%></a></li>
+			    		<%}
+			    		  if(currentPage < lastPage){%>	
+			    			<li class="page-item">
+			    		<%}else{ %>
+			    			<li class="page-item disabled"><%} %>
+			      		   		<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage+1%>">Next</a>
+			    			</li>				
+		 	   		</ul>
+			   </nav></div>
+			</div>
+			<%
+				if(request.getParameter("msg")!=null){
+			%>
+				<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
+			<% 			
+				}
+			%>
+		</div>
+		
 </body>
 </html>

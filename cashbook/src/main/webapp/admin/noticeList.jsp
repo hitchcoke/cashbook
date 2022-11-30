@@ -40,17 +40,20 @@
 		<jsp:include page="./adminMenu.jsp"></jsp:include> 
 		<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
 </div>
+<br>
 
 <h2 style=  "text-align:center">공지사항 관리 </h2>
 	<br>
-	<div>
+	<div class="col-md-11" style="margin: auto;">
 		<table class="table table-bordered align-middle">
 			<tr class="mt-4 p-5 bg-primary text-white rounded">
-				<th>번호</th>
+				<th width=5%>번호</th>
 				<th>내용</th>
-				<th colspan="3">작성일자</th>
+				<th width=15%>작성일자</th>
+				<th width=10%>수정</th>
+				<th width=10%>삭제</th>
 			</tr>
-			<%for(Notice n : list){ %>
+		<%for(Notice n : list){ %>
 			<tr>
 				<td><%= n.getNoticeNo() %></td>
 				<td><%= n.getNoticeMemo() %></td>
@@ -62,7 +65,7 @@
 		</table>
 	<div>
 		<nav aria-label="Page navigation example">
-  			<ul class="pagination justify-content-center pagination-lg">
+  			<ul class="pagination justify-content-center">
 	    		<%if(currentPage > 1){%>	
 	   				<li class="page-item">
 	   				<% }else{ %>
@@ -87,6 +90,8 @@
 	    			</li>				
  	   		</ul>
 	   </nav></div>
+	   <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/admin/insertNoticeForm.jsp?currentPage=<%=currentPage%>'">공지 작성 </button>
+	   
 	</div>
 	
 	
@@ -97,9 +102,6 @@
 	<% 			
 		}
 	%>
-	
-	<button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/admin/insertNoticeForm.jsp?currentPage=<%=currentPage%>'">공지 작성 </button>
-	<button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/logout.jsp'">로그아웃 </button>
 	
 </body>
 </html>

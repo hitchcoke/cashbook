@@ -39,9 +39,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
 <body>
-<h2 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">문의사항 관리 </h2>
-	<br>
 	<div>
+		<jsp:include page="./adminMenu.jsp"></jsp:include> 
+				<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
+	</div>
+	<br>
+	<h2 style="text-align:center">문의사항 관리 </h2>
+	<br>
+	<div class="col-md-11" style="margin: auto;">
 		<table class="table table-bordered align-middle">
 			<tr class="mt-4 p-5 bg-primary text-white rounded">
 				<th width="5%">번호</th>
@@ -85,33 +90,34 @@
 			<%} %>
 				
 		</table>
-	</div>
-	<div>
-		<nav aria-label="Page navigation example">
-  			<ul class="pagination justify-content-center pagination-lg">
-	    		<%if(currentPage > 1){%>	
-	   				<li class="page-item">
-	   				<% }else{ %>
-	   				<li class="page-item disabled"><%} %>
-	      				<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage-1%>">Previous</a>
-	    			</li>
-	    		<%if(currentPage > 1){%>	
-	    			<li class="page-item">
-	    				<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage-1%>"><%=currentPage-1%></a></li>
-	    		<%} %>
-	    			<li class="page-item active" aria-current="page">
-	    				<span class="page-link"><%=currentPage%></span></li>
-	    		<%if(currentPage < lastPage){%>		
-	    			<li class="page-item">
-	    				<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage+1%>"><%=currentPage+1%></a></li>
-	    		<%}
-	    		  if(currentPage < lastPage){%>	
-	    			<li class="page-item">
-	    		<%}else{ %>
-	    			<li class="page-item disabled"><%} %>
-	      		   		<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage+1%>">Next</a>
-	    			</li>				
- 	   		</ul>
-	   </nav></div>
+		<div>
+			<nav aria-label="Page navigation example">
+	  			<ul class="pagination justify-content-center">
+		    		<%if(currentPage > 1){%>	
+		   				<li class="page-item">
+		   				<% }else{ %>
+		   				<li class="page-item disabled"><%} %>
+		      				<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage-1%>">Previous</a>
+		    			</li>
+		    		<%if(currentPage > 1){%>	
+		    			<li class="page-item">
+		    				<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage-1%>"><%=currentPage-1%></a></li>
+		    		<%} %>
+		    			<li class="page-item active" aria-current="page">
+		    				<span class="page-link"><%=currentPage%></span></li>
+		    		<%if(currentPage < lastPage){%>		
+		    			<li class="page-item">
+		    				<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage+1%>"><%=currentPage+1%></a></li>
+		    		<%}
+		    		  if(currentPage < lastPage){%>	
+		    			<li class="page-item">
+		    		<%}else{ %>
+		    			<li class="page-item disabled"><%} %>
+		      		   		<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage+1%>">Next</a>
+		    			</li>				
+	 	   		</ul>
+		   </nav>
+		</div>
+	</div> 
 	</body>
 </html>

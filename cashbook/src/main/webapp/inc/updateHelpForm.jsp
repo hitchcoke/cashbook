@@ -21,37 +21,61 @@
 	
 <!-- Latest compiled JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="..insert/fonts/icomoon/style.css">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../insert/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="../insert/css/style.css">
 <title>updateHelpForm</title>
-<style>
-		textarea {
-			width: 100%;
-			height: 200px;
-			padding: 10px;
-			box-sizing: border-box;
-			border: solid 2px gray;
-			border-radius: 5px;
-			font-size: 16px;
-			resize: both;
-		}
-	</style>
+
 </head>
 <body>
-	<h1 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">문의사항 수정  </h1>
-	<br>
-	<label for="exampleFormControlInput1" class="form-label">&nbsp;&nbsp;&nbsp;내용 </label>
-	<br>
-	<form action="<%=request.getContextPath()%>/inc/updateHelpAction.jsp" method="post">
-		<textarea name="helpMemo" ></textarea>
-		<br>
-		<input type= "hidden" name="helpNo" value="<%=helpNo%>">
-		&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-outline-primary">확인</button>
-	</form>
-	<%
+	<div class="content">
+	    <div class="container">
+	      <div class="row align-items-stretch justify-content-center no-gutters">
+	        <div class="col-md-7">
+	          <div class="form h-100 contact-wrap p-5">
+	            <h3 class="text-center">문의사항 수정</h3><br>
+	            <form class="mb-5" method="post" action="<%=request.getContextPath()%>/inc/updateHelpAction.jsp">
+		            <div class="col-md-12 form-group mb-3">
+		                  <label for="message" class="col-form-label">내용 </label>
+		                  <textarea class="form-control" name="helpMemo" id="message" cols="30" rows="4"></textarea>
+	              	</div>
+					<input type= "hidden" name="helpNo" value="<%=helpNo%>">
+	   			 <br>
+	              <div class="row justify-content-center">
+	                <div class="col-md-5 form-group text-center">
+	                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">수정 </button>
+	                
+	                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  	<%
 		if(request.getParameter("msg")!=null){
 	%>
 		<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
 	<% 			
 		}
 	%>
+	  
+    
+
+    <script src="../insert/js/jquery-3.3.1.min.js"></script>
+    <script src="../insert/js/popper.min.js"></script>
+    <script src="../insert/js/bootstrap.min.js"></script>
+    <script src="../insert/js/jquery.validate.min.js"></script>
+    <script src="../insert/js/main.js"></script>
 </body>
 </html>

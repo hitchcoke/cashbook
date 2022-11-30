@@ -25,5 +25,5 @@
  	HelpDao helpdao= new HelpDao();
  	helpdao.insertHelp(loginMember.getMemberId(), helpMemo);
  	
-	response.sendRedirect(request.getContextPath()+"/inc/helpList.jsp");
+	response.sendRedirect(request.getContextPath()+"/member/memberOne.jsp");
 %>

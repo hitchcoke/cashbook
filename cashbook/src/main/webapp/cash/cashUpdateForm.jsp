@@ -35,27 +35,33 @@ System.out.println(year+""+month);
 	
 <!-- Latest compiled JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-	<style>
-		textarea {
-			width: 100%;
-			height: 200px;
-			padding: 10px;
-			box-sizing: border-box;
-			border: solid 2px gray;
-			border-radius: 5px;
-			font-size: 16px;
-			resize: both;
-		}
-	</style>
+	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="..insert/fonts/icomoon/style.css">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../insert/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="../insert/css/style.css">
 </head>
 <body>
 	
-<h1 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">내용 수정</h1>
-	<br>
-	<br>
-	<form action="<%=request.getContextPath()%>/cash/cashUpdateAction.jsp" method="post">
-		<div class="container">
-		<select name= "categoryNo">
+
+	<div class="content">
+    
+    <div class="container">
+      <div class="row align-items-stretch justify-content-center no-gutters">
+        <div class="col-md-7">
+          <div class="form h-100 contact-wrap p-5">
+            <h3 class="text-center">회원정보 수정</h3><br>
+            <div><%=loginMember.getMemberId() %> 님의 정보수정 </div><br>
+            <form class="mb-5" method="post" action="<%=request.getContextPath()%>/cash/cashUpdateAction.jsp">
+            <div class="row">
+				<label for="exampleFormControlInput1" class="form-label">&nbsp;카테고리종류</label><br>
+					<select name="categoryNo" class="form-select" aria-label="Default select example">
 						<%for(Category c : ct){ %>	
 							<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%>&nbsp;
 							<%if(c.getCategoryKind().equals("지출")){%>
@@ -66,27 +72,52 @@ System.out.println(year+""+month);
 							<%=c.getCategoryName()%></option>
 							
 						<%} %>
-					<!-- 카테고리 목록출 -->
-					</select><br>
-		<label for="exampleFormControlInput1" class="form-label">&nbsp;내용 </label>
-  			<input type="text" class="form-control" name="cashMemo"><!-- plaecholder로 들어갈 부서넘버의 예시를 알려준다 -->
-  		<label for="exampleFormControlInput1" class="form-label">&nbsp;비용 </label>
-  			<input type="text" class="form-control" name="cashPrice">
-		<div class="d-grid gap-2 mt-5">
-		<input type="hidden" name="cashNo" value="<%=cashNo%>">
-		<input type="hidden" name="month" value="<%=month%>">
-		<input type="hidden" name="year" value="<%=year%>">
-			<button type="submit" class="btn btn-outline-primary">수정</button>
-		</div>
-		</div>
-	</form>
-	<%
+					</select>
+
+				</div> 
+                <div class="row">
+	                <div class="col-md-12 form-group mb-3">
+	                  <label for="budget" class="col-form-label">내용 </label>
+	                  <input type="text" class="form-control" name="cashMemo" id="subject" placeholder="내용">
+	                </div>
+	            </div>
+	            <div class="row">    
+	                <div class="col-md-12 form-group mb-3">
+	                  <label for="budget" class="col-form-label">비용 </label>
+	                  <input type="number" class="form-control" name="cashPrice" id="subject" placeholder="비용 ">
+	                </div>
+              	</div>
+				<input type="hidden" name="cashNo" value="<%=cashNo%>">
+				<input type="hidden" name="month" value="<%=month%>">
+				<input type="hidden" name="year" value="<%=year%>">
+   			 <br>
+              <div class="row justify-content-center">
+                <div class="col-md-5 form-group text-center">
+                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">수정 </button>
+                
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  	<%
 		if(request.getParameter("msg")!=null){
 	%>
 		<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
 	<% 			
 		}
 	%>
-	
+	  
+    
+
+    <script src="../insert/js/jquery-3.3.1.min.js"></script>
+    <script src="../insert/js/popper.min.js"></script>
+    <script src="../insert/js/bootstrap.min.js"></script>
+    <script src="../insert/js/jquery.validate.min.js"></script>
+    <script src="../insert/js/main.js"></script>
 </body>
 </html>

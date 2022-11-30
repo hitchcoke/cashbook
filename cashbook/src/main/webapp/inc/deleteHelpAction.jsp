@@ -9,5 +9,5 @@
 	HelpDao helpdao =new HelpDao();
 	helpdao.deleteHelp(helpNo);
  	
- 	response.sendRedirect(request.getContextPath()+"/inc/helpList.jsp");
+ 	response.sendRedirect(request.getContextPath()+"/member/memberOne.jsp");
 %>

@@ -19,36 +19,86 @@
 <head>
 <meta charset="UTF-8">
 <title>InsertCategoryForm</title>
-<!-- Latest compiled and minified CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	
 <!-- Latest compiled JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-<title>noticeUpdateForm</title>
+	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="..insert/fonts/icomoon/style.css">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../insert/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="../insert/css/style.css">
+<title>insertCategoryForm</title>
 </head>
 <body>
-	<h1 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded">카테고리 추가 </h1>
-	<br>
-	<br>
-	<form method="post" action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp">
-		<div class="container">
-		<label for="exampleFormControlInput1" class="form-label">&nbsp;카테고리종류</label><br>
-  			<input type="radio" name="categoryKind" value="지출"> 💸 지출
-			<input type="radio" name="categoryKind" value="수입"> 💰 수입<br><br>
-  		<label for="exampleFormControlInput1" class="form-label">&nbsp;카테고리이름 </label><br>
-  			<input type="text"  name="categoryName"  class="form-control" >
-		<div class="d-grid gap-2 mt-5">
-			<button type="submit" class="btn btn-outline-primary">추가</button>
-		</div>
-		</div>
-	</form>
 	
-	<%
+		<div class="content">
+    
+    <div class="container">
+      <div class="row align-items-stretch justify-content-center no-gutters">
+        <div class="col-md-7">
+          <div class="form h-100 contact-wrap p-5">
+            <h3 class="text-center">카테고리 추가</h3><br>
+           
+            <form class="mb-5" method="post" action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp">
+			<div class="row mb-5">
+				<div class="row">
+				<label for="exampleFormControlInput1" class="form-label">&nbsp;카테고리종류</label><br>
+					<select name="categoryKind" class="form-select" aria-label="Default select example">
+						<option value="지출">💸 지출
+						<option value="수입">💰 수입
+					</select>
+
+				</div> 
+                 <div class="row">
+	                <div class="col-md-12 form-group mb-3">
+	                  <label for="budget" class="col-form-label">카테고리 이름 </label>
+	                  <input type="text" class="form-control" name="categoryName" id="subject" placeholder="이름 ">
+	                </div>
+              	</div>
+             </div>
+   			 <br>
+				
+              <div class="row justify-content-center">
+                <div class="col-md-5 form-group text-center">
+                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">확인 </button>
+                  
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  	<%
 		if(request.getParameter("msg")!=null){
 	%>
-		<br><div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
+		<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
 	<% 			
 		}
 	%>
+	  
+    <!-- 
+    <div class="row mb-5">
+                <div class="col-md-12 form-group mb-3">
+                  <label for="message" class="col-form-label">Message *</label>
+                  <textarea class="form-control" name="message" id="message" cols="30" rows="4"  placeholder="Write your message"></textarea>
+                </div>
+              </div> -->
+    
+
+    <script src="../insert/js/jquery-3.3.1.min.js"></script>
+    <script src="../insert/js/popper.min.js"></script>
+    <script src="../insert/js/bootstrap.min.js"></script>
+    <script src="../insert/js/jquery.validate.min.js"></script>
+    <script src="../insert/js/main.js"></script>
 </body>
 </html>

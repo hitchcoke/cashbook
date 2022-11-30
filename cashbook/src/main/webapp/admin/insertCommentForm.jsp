@@ -22,37 +22,72 @@
 	
 <!-- Latest compiled JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="..insert/fonts/icomoon/style.css">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../insert/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="../insert/css/style.css">
 <title>insertCommentForm</title>
-<style>
-		textarea {
-			width: 100%;
-			height: 200px;
-			padding: 10px;
-			box-sizing: border-box;
-			border: solid 2px gray;
-			border-radius: 5px;
-			font-size: 16px;
-			resize: both;
-		}
-	</style>
+
 </head>
 <body>
-	<h1 style="text-align:center" class="mt-4 p-5 bg-primary text-white rounded"> 문의사항 답글  </h1>
-	<br>
-	<label for="exampleFormControlInput1" class="form-label">&nbsp;&nbsp;&nbsp;내용 </label>
-	<br>
-	<form action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp" method="post">
-		<input type = "hidden" name= "helpNo" value="<%=helpNo%>">
-		<textarea name="commentMemo" ></textarea>
-		<br>
-		&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-outline-primary">확인</button>
-	</form>
-	<%
+		<div class="content">
+    
+    <div class="container">
+      <div class="row align-items-stretch justify-content-center no-gutters">
+        <div class="col-md-7">
+          <div class="form h-100 contact-wrap p-5">
+            <h3 class="text-center">문의사항 처리  </h3><br>
+           
+            <form class="mb-5" method="post" action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp">
+			<div class="row mb-5">
+                <div class="col-md-12 form-group mb-3">
+                  <label for="message" class="col-form-label">내용 </label>
+                  <textarea class="form-control" name="commentMemo" id="message" cols="30" rows="4"></textarea>
+                </div>
+             </div>
+   			 <br>
+			<input type = "hidden" name= "helpNo" value="<%=helpNo%>">
+              <div class="row justify-content-center">
+                <div class="col-md-5 form-group text-center">
+                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">확인 </button>
+                  
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  	<%
 		if(request.getParameter("msg")!=null){
 	%>
 		<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
 	<% 			
 		}
 	%>
+	  
+    <!-- 
+    <div class="row mb-5">
+                <div class="col-md-12 form-group mb-3">
+                  <label for="message" class="col-form-label">Message *</label>
+                  <textarea class="form-control" name="message" id="message" cols="30" rows="4"  placeholder="Write your message"></textarea>
+                </div>
+              </div> -->
+    
+
+    <script src="../insert/js/jquery-3.3.1.min.js"></script>
+    <script src="../insert/js/popper.min.js"></script>
+    <script src="../insert/js/bootstrap.min.js"></script>
+    <script src="../insert/js/jquery.validate.min.js"></script>
+    <script src="../insert/js/main.js"></script>
 </body>
 </html>

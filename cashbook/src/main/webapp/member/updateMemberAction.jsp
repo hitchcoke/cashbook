@@ -3,6 +3,7 @@
 <%@ page import="java.util.*" %><%@ page import="dao.*" %>
 <%@page import="java.net.URLEncoder" %> 
 <%
+	request.setCharacterEncoding("utf-8");
 	if(session.getAttribute("resultMember")==null){
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
