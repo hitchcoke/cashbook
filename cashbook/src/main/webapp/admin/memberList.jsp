@@ -34,6 +34,13 @@
 	<title>memberList</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="../table/css/style.css">
 	<style>
 		td{
 		text-align: center;
@@ -54,12 +61,12 @@
 					<tr class="mt-4 p-5 bg-primary text-white rounded" style= "text-align: center;">
 						<th width=10%>멤버번호</th>
 						<th width=10%>아이디</th>
-						<th width=5%>레벨</th>
+						<th width=10%>레벨</th>
 						<th width=10%>이름</th>
-						<th width=20%>마지막수정일자</th>
-						<th width=20%>생성일자</th>
+						<th width=15%>마지막수정일자</th>
+						<th width=15%>생성일자</th>
 						<th width=15%>권한수정</th>
-						<th width=10%>계정삭제</th>
+						<th width=15%>계정삭제</th>
 					</tr>
 					<%for(Member m : list){ %>
 					<tr>

@@ -36,7 +36,15 @@ if(month<10){
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="../table/css/style.css">
+
 <title>cashOne</title>
 </head>
 <body>
@@ -50,18 +58,15 @@ if(month<10){
    </h2>
    <br>
    <br>
-   <br>
-
-   <br>
    <div class="row">
-   		<div class="col-md-1"></div>
+   			 
   		<div class="col-md-3 contents">	
-			<h3>가계부 추가 </h3>
+			<h3>&nbsp;가계부 추가 </h3>
 			   <form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
 			   		<table>
 			   			<tr>
 							<td>
-								<select name= "categoryNo">
+								&nbsp;&nbsp;<select name= "categoryNo">
 									<%for(Category c : ct){ %>	
 										<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%>&nbsp;
 										<%if(c.getCategoryKind().equals("지출")){%>
@@ -97,15 +102,16 @@ if(month<10){
 			   			<button type="submit" class="btn btn-outline-primary btn-lg">추가</button>      
 			   </form>
 			</div>
-		 <div class="col-md-7">
+				 <div class="col-md-1"></div>
+		 <div class="col-md-3">
 		   	<table class="table table-bordered align-middle">
 		   		<tr class="mt-3 p-4 bg-primary text-white rounded">
-		   			<th width=6%>종류 </th>
-		   			<th width=8%>이름 </th>
-		   			<th width=10%>액수 </th>
+		   			<th width=10%>종류 </th>
+		   			<th width=12%>이름 </th>
+		   			<th width=14%>액수 </th>
 		   			<th>메모 </th>
-		   			<th width=10%>수정</th>
-		   			<th width=10%>삭제 </th>
+		   			<th width=12%>수정</th>
+		   			<th width=12%>삭제 </th>
 		   		</tr>
 		   		<%for(HashMap<String, Object> m : list){ %>  
 		         <tr>  		
@@ -125,8 +131,8 @@ if(month<10){
 		         </tr>
 		        <%}%>
 		    </table>    
-		 </div><br>
-		 <div class="col-md-1"></div>
+		 </div>
+	
 	</div>
 
 </body>

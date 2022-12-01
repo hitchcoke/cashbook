@@ -37,6 +37,13 @@
 </head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="../table/css/style.css">
 
 <body>
 	<div>
@@ -49,12 +56,12 @@
 	<div class="col-md-11" style="margin: auto;">
 		<table class="table table-bordered align-middle">
 			<tr class="mt-4 p-5 bg-primary text-white rounded">
-				<th width="5%">번호</th>
+				<th width="10%">번호</th>
 				<th>내용</th>
 				<th width="10%">작성일</th>
 				<th width="5%">작성자 </th>
 				<th width="10%">처리상태</th>
-				<th width="10%">처리 </th>
+				<th width="15%">처리 </th>
 			</tr>
 			<%for(HashMap<String, Object> h : list){ %>
 			<tr>

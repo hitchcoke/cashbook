@@ -31,10 +31,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
+
        <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+   		
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="sourse/fonts/icomoon/style.css">
 
@@ -47,15 +47,31 @@
     <link rel="stylesheet" href="sourse/css/style.css">
 </head>
 <body>
+ <header class="bg-dark py-5">
+                <div class="container px-5">
+                    <div class="row gx-5 align-items-center justify-content-center">
+                        <div class="col-lg-8 col-xl-7 col-xxl-6">
+                            <div class="my-5 text-center text-xl-start">
+                                <h1 class="display-5 fw-bolder text-white mb-2">이지원의 첫 프로젝트</h1>
+                                <p class="lead fw-normal text-white-50 mb-4">효과적인 캘린더 지출 시스템과 관리자모드 적용</p>
+                                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="image/back.png"  alt="..." /></div>
+                    </div>
+                </div>
+            </header>
 	<div class="content">
     <div class="container">
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-6">
           <div class="container">		
 				<div>
-					<br>
+				
 					<h1 style=  "text-align:center">공지사항</h1>
-					<br>
+					
 					<div>
 						<table class="table table-bordered align-middle">
 							<tr class="mt-4 p-5 bg-primary text-white rounded">
@@ -102,11 +118,11 @@
 				</div>
 			</div>
         </div>
-        <div class="col-md-5 contents">
+        <div class="col-6 contents">
           <div class="row justify-content-center">
             <div class="col-md-8">
               <div class="mb-4">
-              <br>
+           
               <h3>로그인 </h3>
             </div>
             <form method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
@@ -139,12 +155,16 @@
 	<%
 	}%>
   </div>
- 
-  
+
     <script src="sourse/js/jquery-3.3.1.min.js"></script>
     <script src="sourse/js/popper.min.js"></script>
     <script src="sourse/js/bootstrap.min.js"></script>
     <script src="sourse/js/main.js"></script>
+   <script src="table/js/jquery.min.js"></script>
+  <script src="table/js/popper.js"></script>
+  <script src="table/js/bootstrap.min.js"></script>
+  <script src="table/js/main.js"></script>
+    
 	
 </body>
 </html>
