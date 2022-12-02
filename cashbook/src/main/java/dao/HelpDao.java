@@ -6,16 +6,23 @@ import util.*;
 import java.util.*;
 
 public class HelpDao {
-	public ArrayList<HashMap<String, Object>> selectMemberHelpList(String memberId) throws Exception{
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		Dbutil db =new Dbutil();
-		Connection conn = db.getConnection();
+	public ArrayList<HashMap<String, Object>> selectMemberHelpList(String memberId){
+		ArrayList<HashMap<String, Object>> list = null;
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		ResultSet rs =null;
+		
+		try {
+		list = new ArrayList<HashMap<String, Object>>();
+		db =new Dbutil();
+		conn = db.getConnection();
 		
 		String sql ="SELECT * FROM help h LEFT OUTER JOIN comment c on h.help_no = c.help_no WHERE h.member_id  = ? ORDER BY h.createdate";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, memberId);
 		
-		ResultSet rs = stmt.executeQuery();
+		rs = stmt.executeQuery();
 		
 		while(rs.next()) {
 			HashMap<String, Object> h = new HashMap<String, Object>();
@@ -29,19 +36,36 @@ public class HelpDao {
 				
 			list.add(h);			
 		}
-		db.close(rs, stmt, conn);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return list;
 	}
-	public ArrayList<HashMap<String, Object>> selectHelpList(int beginRow, int rowPerPage) throws Exception{
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		Dbutil db =new Dbutil();
-		Connection conn = db.getConnection();
+	public ArrayList<HashMap<String, Object>> selectHelpList(int beginRow, int rowPerPage) {
+		
+		ArrayList<HashMap<String, Object>> list = null;
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		ResultSet rs =null;
+		
+		try {
+		list = new ArrayList<HashMap<String, Object>>();
+		 db =new Dbutil();
+		 conn = db.getConnection();
 		
 		String sql = "SELECT * FROM help h LEFT OUTER JOIN comment c on h.help_no = c.help_no ORDER BY h.createdate LIMIT ?, ?"; 
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		 stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, rowPerPage);
-		ResultSet rs = stmt.executeQuery();
+		 rs = stmt.executeQuery();
 		
 		while(rs.next()) {
 			HashMap<String, Object> h = new HashMap<String, Object>();
@@ -56,75 +80,143 @@ public class HelpDao {
 			
 			list.add(h);
 		}	
-		db.close(rs, stmt, conn);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		return list;
 	}
-	public int helpCount(int beginRow, int rowPerPage) throws Exception  {
-		Dbutil db =new Dbutil();
-		Connection conn = db.getConnection();
+	public int helpCount(int beginRow, int rowPerPage) {
+		
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		ResultSet rs =null;
+		int lastPage=0;
+		
+		try {
+		db =new Dbutil();
+		conn = db.getConnection();
 		
 		int count = 0;
 		
 		String sql = "SELECT COUNT(*) FROM help";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		ResultSet rs= stmt.executeQuery();
+		stmt = conn.prepareStatement(sql);
+		rs= stmt.executeQuery();
 		if(rs.next()) {
 			count=rs.getInt("count(*)");
 		}
-		int lastPage= count/rowPerPage;
+		lastPage= count/rowPerPage;
 		if(count%rowPerPage!=0) {
 			lastPage+=1;
 		}
-		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs, stmt, conn);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 		return lastPage;
 		
 		
 	}
 	
-	public int insertHelp(String memberId, String helpMemo) throws Exception{
-		Dbutil db = new Dbutil();
-		Connection conn = db.getConnection();
+	public int insertHelp(String memberId, String helpMemo) {
+		
+		
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		
+		try {
+		 db = new Dbutil();
+		conn = db.getConnection();
 		
 		String sql = "INSERT INTO help(member_id, help_memo, createdate, updatedate) VALUES (?, ?, now(), now()) ";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		 stmt = conn.prepareStatement(sql);
 		stmt.setString(1, memberId);
 		stmt.setString(2, helpMemo);
 		
 		stmt.executeUpdate();
-		stmt.close();
-		conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(null, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		
 		return 1;
 	}
-	public int deleteHelp(int helpNo) throws Exception{
-		Dbutil db = new Dbutil();
-		Connection conn = db.getConnection();
+	public int deleteHelp(int helpNo){
+	
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+	
+		
+		try {
+		 db = new Dbutil();
+		conn = db.getConnection();
 		
 		String sql = "DELETE FROM help WHERE help_no=?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, helpNo);
 		
 		stmt.executeUpdate();
-		db.close(null, stmt, conn);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(null, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		return 1;
 	}
 	
-	public int updateHelp(int helpNo, String helpMemo) throws Exception{
-		Dbutil db = new Dbutil();
-		Connection conn = db.getConnection();
+	public int updateHelp(int helpNo, String helpMemo) {
+		
+	
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		
+		try {
+		db = new Dbutil();
+		conn = db.getConnection();
 		
 		String sql = "UPDATE help SET help_memo= ?, updatedate= now() WHERE help_no=?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, helpMemo);
 		stmt.setInt(2, helpNo);
 		
 		stmt.executeUpdate();
-		
-		stmt.close();
-		conn.close();
-		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(null, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		return 1;
 		

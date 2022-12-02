@@ -30,7 +30,7 @@
 	String targetUrl="/loginForm.jsp?msg="+msg;
 	
 	if(resultMember.getMemberName()!=null){
-		targetUrl="/cash/cashList.jsp";
+		targetUrl="/home.jsp";
 		
 		session.setAttribute("resultMember", resultMember);
 	}

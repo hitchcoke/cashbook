@@ -8158,10 +8158,7 @@ h1, h2, h3, h4, h5,
 .table-wrap {
   overflow-x: scroll; }
 
-.table {
-  min-width: 1000px !important;
-  width: 100%;
-  background: #fff; }
+
   .table thead.thead-primary {
     background: #1089ff; }
   .table thead th {

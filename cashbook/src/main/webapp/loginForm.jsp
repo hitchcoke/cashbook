@@ -118,7 +118,7 @@
 				</div>
 			</div>
         </div>
-        <div class="col-6 contents">
+        <div class="col-s contents">
           <div class="row justify-content-center">
             <div class="col-md-8">
               <div class="mb-4">

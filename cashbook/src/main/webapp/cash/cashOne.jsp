@@ -54,13 +54,14 @@ if(month<10){
 	</div>
 	<br>
 	<h2 style="text-align:center">
-      <%=year%>년 <%=month%> 월 <%=date %>일  
+      <%=year%>년 <%=month%>월 <%=date %>일  
    </h2>
    <br>
    <br>
+   <div class="container px-11">
    <div class="row">
    			 
-  		<div class="col-md-3 contents">	
+  		<div class="col-4">	
 			<h3>&nbsp;가계부 추가 </h3>
 			   <form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
 			   		<table>
@@ -102,16 +103,17 @@ if(month<10){
 			   			<button type="submit" class="btn btn-outline-primary btn-lg">추가</button>      
 			   </form>
 			</div>
-				 <div class="col-md-1"></div>
-		 <div class="col-md-3">
-		   	<table class="table table-bordered align-middle">
+		
+		 <div class="col-6">
+		 
+			<table class="table w-auto pr-4" style="width:100%">
 		   		<tr class="mt-3 p-4 bg-primary text-white rounded">
-		   			<th width=10%>종류 </th>
-		   			<th width=12%>이름 </th>
-		   			<th width=14%>액수 </th>
+		   			<th>종류 </th>
+		   			<th>이름 </th>
+		   			<th>액수 </th>
 		   			<th>메모 </th>
-		   			<th width=12%>수정</th>
-		   			<th width=12%>삭제 </th>
+		   			<th>수정</th>
+		   			<th>삭제 </th>
 		   		</tr>
 		   		<%for(HashMap<String, Object> m : list){ %>  
 		         <tr>  		
@@ -131,9 +133,11 @@ if(month<10){
 		         </tr>
 		        <%}%>
 		    </table>    
-		 </div>
 	
+		</div>
+		<div class = "col-2">&nbsp;</div>
 	</div>
-
+</div>
+	
 </body>
 </html>

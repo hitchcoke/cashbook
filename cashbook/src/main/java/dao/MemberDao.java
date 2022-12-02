@@ -8,34 +8,50 @@ import java.util.*;
 
 public class MemberDao {
 	//	반환값의 의미는 true 시 존재, false 시 사용가 
-	public boolean selectMemberIdCk(String memberId) throws Exception {
+	public boolean selectMemberIdCk(String memberId)  {
 			boolean result = false;
-			Dbutil db = new Dbutil();
-			Connection conn = db.getConnection();
+			Dbutil db =null;
+			PreparedStatement stmt = null;
+			Connection conn= null;
+			ResultSet rs= null;
+			try {
+			db = new Dbutil();
+			 conn = db.getConnection();
 			
 			String sql = "SELECT member_id FROM member WHERE member_id = ?"+memberId;
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
+			 stmt = conn.prepareStatement(sql);
+			 rs = stmt.executeQuery();
 			if(rs.next()) {
 				result = true;
 			}
-			Dbutil dbb = new Dbutil();
-			dbb.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					db.close(rs, stmt, conn);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
 			return result;
 			
 	}
 	
-	public String deleteMemberByAdmin(String memberId, String adminId) throws Exception{
+	public String deleteMemberByAdmin(String memberId, String adminId) {
+		Dbutil db =null;
+		PreparedStatement stmt2 = null;
+		Connection conn= null;
+		ResultSet rs2= null;
 		
-		Dbutil db = new Dbutil();
-		Connection conn = db.getConnection();
-		
+		try {
+		db = new Dbutil();
+		conn = db.getConnection();
 		
 		
 		String sql2 ="SELECT member_level FROM member WHERE member_id=?";
-		PreparedStatement stmt2 = conn.prepareStatement(sql2);
+		 stmt2 = conn.prepareStatement(sql2);
 		stmt2.setString(1, adminId);
-		ResultSet rs2 = stmt2.executeQuery();
+		rs2 = stmt2.executeQuery();
 		
 		if(rs2.next()) {
 			if(rs2.getInt("member_level")==1) {
@@ -53,23 +69,35 @@ public class MemberDao {
 
 			System.out.println("실");
 		}
-		conn.close();
-		stmt2.close();
-		rs2.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs2, stmt2, conn);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
 		return "실패";
 	}
 	
-	public String updateLevelAction(String memberId, String adminId, int memberLevel) throws Exception{
+	public String updateLevelAction(String memberId, String adminId, int memberLevel) {
 		
-		Dbutil db = new Dbutil();
-		Connection conn = db.getConnection();
+		Dbutil db =null;
+		PreparedStatement stmt2 = null;
+		Connection conn= null;
+		ResultSet rs2= null;
 		
+		try {
 		
+		 db = new Dbutil();
+		conn = db.getConnection();
 		
 		String sql2 ="SELECT member_level FROM member WHERE member_id=?";
-		PreparedStatement stmt2 = conn.prepareStatement(sql2);
+		 stmt2 = conn.prepareStatement(sql2);
 		stmt2.setString(1, adminId);
-		ResultSet rs2 = stmt2.executeQuery();
+		rs2 = stmt2.executeQuery();
 		
 		if(rs2.next()) {
 			if(rs2.getInt("member_level")==1) {
@@ -89,9 +117,16 @@ public class MemberDao {
 
 			System.out.println("실패  ");
 		}
-		conn.close();
-		stmt2.close();
-		rs2.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs2, stmt2, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return "실패";
 	}
 	
@@ -138,32 +173,44 @@ public class MemberDao {
 	
 	
  	
-	public Member login(Member paramMember) throws Exception {
+	public Member login(Member paramMember) {
+		Member resultMember= null;
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		ResultSet rs =null;
 		
-		Dbutil db= new Dbutil();
+		try {
+		db= new Dbutil();
 		
-		Connection conn = db.getConnection();
+		conn = db.getConnection();
 		
 		
 		String sql = "SELECT * FROM member WHERE member_id = ? AND member_pw=PASSWORD(?)";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		 stmt = conn.prepareStatement(sql);
 		stmt.setString(1, paramMember.getMemberId());
 		stmt.setString(2, paramMember.getMemberPw());
 		
-		ResultSet rs= stmt.executeQuery();
+		rs= stmt.executeQuery();
 		
-		Member resultMember = new Member();
+		 resultMember = new Member();
 		
 		if(rs.next()) {
 			resultMember.setMemberName(rs.getString("member_name"));
 			resultMember.setMemberNo(rs.getInt("member_no"));
 			resultMember.setMemberId(rs.getString("member_id"));
 			resultMember.setMemberLevel(rs.getInt("member_level"));		}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs, stmt, conn);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 		
-		
-		rs.close();
-		stmt.close();
-		conn.close();
+	
 		
 		return resultMember;
 	}
@@ -216,27 +263,39 @@ public class MemberDao {
 		}
 	
 	
-	public Member memberOneList(String memberId) throws Exception {
+	public Member memberOneList(String memberId) {
 		
 		Member member= new Member();
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		ResultSet rs =null;
 		
-		Dbutil db = new Dbutil();
-		Connection conn = db.getConnection();
-		
-		String sql= "SELECT * FROM member WHERE member_id= ?;";
-		
-		PreparedStatement stmt= conn.prepareStatement(sql); 
-		stmt.setString(1, memberId);
-		ResultSet rs = stmt.executeQuery();
-		if(rs.next()) {
-			member.setMemberName(rs.getString("member_name"));
-			member.setCreatedate(rs.getString("createdate"));
+		try {
+			db = new Dbutil();
+			 conn = db.getConnection();
 			
+			String sql= "SELECT * FROM member WHERE member_id= ?;";
+			
+			stmt= conn.prepareStatement(sql); 
+			stmt.setString(1, memberId);
+			 rs = stmt.executeQuery();
+			if(rs.next()) {
+				member.setMemberName(rs.getString("member_name"));
+				member.setCreatedate(rs.getString("createdate"));
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
-		stmt.close();
-		rs.close();
-		conn.close();
+	
 		return member;
 	}
 	public String memberUpdate(String memberId, String memberName) throws Exception{
@@ -259,16 +318,21 @@ public class MemberDao {
 		return target;
 	}
 	
-	public ArrayList<Member> selecetMemberList(int beginRow, int rowPerPage) throws Exception {
+	public ArrayList<Member> selecetMemberList(int beginRow, int rowPerPage)  {
 		ArrayList<Member> list = new ArrayList<Member>();
-		Dbutil db = new Dbutil();
-		Connection conn = db.getConnection();
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		ResultSet rs =null;
+		try {
+		 db = new Dbutil();
+		 conn = db.getConnection();
 		
 		String sql ="SELECT * FROM member ORDER BY createdate DESC LIMIT ?,?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		 stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, rowPerPage);
-		ResultSet rs = stmt.executeQuery();
+		 rs = stmt.executeQuery();
 		
 		while(rs.next()) {
 			Member m = new Member();
@@ -280,25 +344,49 @@ public class MemberDao {
 			m.setUpdatedate(rs.getString("updatedate"));
 			list.add(m);
 		}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		return list;
 	}
-	public int selectMemberCount(int rowPerPage) throws Exception{
+	public int selectMemberCount(int rowPerPage) {
 		int count=0;
-		Dbutil db =new Dbutil();
-		Connection conn = db.getConnection();
-		String sql = "SELECT COUNT(*) FROM member;";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		int lastPage=0;
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		ResultSet rs =null;
 		
-		ResultSet rs= stmt.executeQuery();
+		try {
+		db =new Dbutil();
+		 conn = db.getConnection();
+		String sql = "SELECT COUNT(*) FROM member;";
+		stmt = conn.prepareStatement(sql);
+		
+		 rs= stmt.executeQuery();
 		if(rs.next()) {
 			count=rs.getInt("count(*)");
 		}
-		int lastPage= count/rowPerPage;
+		 lastPage= count/rowPerPage;
 		if(count%rowPerPage!=0) {
 			lastPage+=1;
 		}
-		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return lastPage;
 	}
 }
