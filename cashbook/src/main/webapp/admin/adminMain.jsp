@@ -72,7 +72,7 @@
 				<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
 	</div>
 
-
+	<div class="col-md-11" style="margin: auto;">
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
@@ -228,7 +228,7 @@
                   </div>
                 </div>
             </div>
-                   
+        </div>        
 
     <!-- jquery vendor -->
     <script src="js/lib/jquery.min.js"></script>

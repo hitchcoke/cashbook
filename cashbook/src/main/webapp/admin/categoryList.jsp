@@ -42,7 +42,7 @@
 </div>
 	<br>
 	 <div class="col-md-11" style="margin: auto;">
-		<h2 style=  "text-align:center">카테고리관리 </h2><br>
+		<h5 style=  "text-align:center">카테고리관리 </h5><br>
 		<table class="table table-bordered align-middle">
 				<tr class="mt-4 p-5 bg-primary text-white rounded">
 					<th width=10%>번호</th>

@@ -10,7 +10,16 @@ public class Member {
 	private String createdate;
 	private String updatedate;
 	private int memberLevel;
+	private int hope;
 	
+	
+	
+	public int getHope() {
+		return hope;
+	}
+	public void setHope(int hope) {
+		this.hope = hope;
+	}
 	public int getMemberLevel() {
 		return memberLevel;
 	}

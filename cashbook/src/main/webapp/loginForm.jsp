@@ -53,13 +53,13 @@
                         <div class="col-lg-8 col-xl-7 col-xxl-6">
                             <div class="my-5 text-center text-xl-start">
                                 <h1 class="display-5 fw-bolder text-white mb-2">이지원의 첫 프로젝트</h1>
-                                <p class="lead fw-normal text-white-50 mb-4">효과적인 캘린더 지출 시스템과 관리자모드 적용</p>
+                                <p class="lead fw-normal text-white-50 mb-4">효과적인 캘린더, 가계부 시스템과 관리자모드 적용</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                             
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="image/back.png"  alt="..." /></div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="image/bgm.png"></div>
                     </div>
                 </div>
             </header>
@@ -70,7 +70,7 @@
           <div class="container">		
 				<div>
 				
-					<h1 style=  "text-align:center">공지사항</h1>
+					<h3 style=  "text-align:center">공지사항</h3>
 					
 					<div>
 						<table class="table table-bordered align-middle">

@@ -35,7 +35,7 @@ Member loginMember = (Member)session.getAttribute("resultMember");
 	      <a class="nav-link" href="<%=request.getContextPath()%>/admin/adminHelpList.jsp"><span>&nbsp;&nbsp;&nbsp;</span>문의사항관리</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="<%=request.getContextPath()%>/home.jsp"><span>&nbsp;&nbsp;&nbsp;</span>홈으로</a>
+	      <a class="nav-link" href="<%=request.getContextPath()%>/home.jsp"><span>&nbsp;&nbsp;&nbsp;</span>일반모드</a>
 	    </li>
         <li class="nav-item">
           <a class="nav-link" href="<%=request.getContextPath()%>/logout.jsp"><span>&nbsp;&nbsp;&nbsp;</span>로그아웃 </a>

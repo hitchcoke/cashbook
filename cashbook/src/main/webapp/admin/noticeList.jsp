@@ -49,7 +49,7 @@
 </div>
 <br>
 
-<h2 style=  "text-align:center">공지사항 관리 </h2>
+<h5 style=  "text-align:center">공지사항 관리 </h5>
 	<br>
 	<div class="col-md-11" style="margin: auto;">
 		<table class="table table-bordered align-middle">

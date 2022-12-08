@@ -51,6 +51,7 @@
 	<br>
 	<br>
 	<div class="row">
+	<div class="col-md-1"> </div>
 		 <div class="col-md-3">
 			<div class="card" style="width: 18rem; margin:0 auto; ;">
 		  		<img src="<%=request.getContextPath()%>/image/face.png" class="card-img-top">
@@ -70,14 +71,14 @@
 			    </div>
 	 		</div>
 	 	</div>
-	 <div class="col-md-9 contents">		
-	 <table class="table table-bordered align-middle">
+	 <div class="col-md-7 contents">		
+	 <table class="table table-bordered align-middle" border="1">
 			<tr class="mt-4 p-5 bg-primary text-white rounded">
 				<th>문의 내용</th>
 				<th width="10%">작성일</th>
-				<th width="12%">처리상태</th>
-				<th width="11%">수정</th>
-				<th width="11%">삭제</th>
+				<th width="15%">처리상태</th>
+				<th width="15%">수정</th>
+				<th width="15%">삭제</th>
 			</tr>
 			<%for(HashMap<String, Object> h : list){ %>
 			<tr>
@@ -115,6 +116,7 @@
 		</table>
 		<div><button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/inc/insertHelpForm.jsp'">문의하기  </button></div>
 		</div>
+		<div class="col-md-1"> </div>
 	</div>	
 </body>
 </html>	   

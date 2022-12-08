@@ -16,6 +16,7 @@
 	 System.out.println(cashdate);
 	 Member loginMember = (Member)session.getAttribute("resultMember"); 	
 	 int categoryNo= Integer.parseInt(request.getParameter("categoryNo"));
+	 int date = Integer.parseInt(request.getParameter("date"));
 	 
 	 String year= cashdate.substring(0, 4);
 	 int month= Integer.parseInt(cashdate.substring(5, 7));
@@ -23,7 +24,7 @@
 	 if(request.getParameter("cashMemo")==null||request.getParameter("cashMemo").equals("")||
 				request.getParameter("cashPrice")==null||request.getParameter("cashPrice").equals("")){
 				String msg = URLEncoder.encode("내용을 채워주세요  ","utf-8"); // get방식 주소창에 문자열 인코딩
-				response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp?msg="+msg+"&year="+year+"&month="+(month-1));
+				response.sendRedirect(request.getContextPath()+"/cash/cashUpdateForm.jsp?msg="+msg+"&year="+year+"&month="+month+"&date="+date);
 				return;	
 				}
 	 
@@ -34,6 +35,5 @@
 
 	 
 	 
-	 response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp?year="+year+"&month="+(month-1));
-	 
+	  response.sendRedirect(request.getContextPath()+"/cash/cashOne.jsp?year="+year+"&month="+month+"&date="+date);
 %>

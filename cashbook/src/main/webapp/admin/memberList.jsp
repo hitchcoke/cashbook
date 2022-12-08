@@ -54,7 +54,7 @@
 	</div>
 	<br>
 	<div class="col-md-11" style="margin: auto;">
-		<h2 style=  "text-align:center">멤버관리 </h2>
+		<h5 style=  "text-align:center">멤버관리 </h5>
 			<br>
 			<div>
 				<table class="table table-bordered align-middle">

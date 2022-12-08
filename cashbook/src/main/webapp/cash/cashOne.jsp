@@ -37,11 +37,9 @@ if(month<10){
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 	
 	<link rel="stylesheet" href="../table/css/style.css">
 
@@ -62,8 +60,9 @@ if(month<10){
    <div class="row">
    			 
   		<div class="col-4">	
-			<h3>&nbsp;가계부 추가 </h3>
+			<h5>&nbsp;가계부 추가 </h5>
 			   <form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
+			   <input type="hidden" value="<%=date%>" name="date">
 			   		<table>
 			   			<tr>
 							<td>
@@ -88,6 +87,7 @@ if(month<10){
 			   				</td>
 			   			</tr>
 			   			<tr>
+			   				
 			   				<td>
 			   				<div class="form-floating mb-3">
 			   				<input type="text" name= "cashPrice" class="form-control" id="floatingInput" placeholder="액수">
@@ -104,16 +104,16 @@ if(month<10){
 			   </form>
 			</div>
 		
-		 <div class="col-6">
+		 <div class="col-8">
 		 
 			<table class="table w-auto pr-4" style="width:100%">
 		   		<tr class="mt-3 p-4 bg-primary text-white rounded">
-		   			<th>종류 </th>
-		   			<th>이름 </th>
-		   			<th>액수 </th>
+		   			<th width="12%">이름 </th>
+		   			<th width="12%">종류 </th>
+		   			<th width="18%">액수 </th>
 		   			<th>메모 </th>
-		   			<th>수정</th>
-		   			<th>삭제 </th>
+		   			<th width="17%">수정</th>
+		   			<th width="17%">삭제 </th>
 		   		</tr>
 		   		<%for(HashMap<String, Object> m : list){ %>  
 		         <tr>  		
@@ -128,14 +128,14 @@ if(month<10){
 						<br></td>
 						<td><%=m.get("cashPrice")+"원"%><br></td>
 						<td><%=m.get("cashMemo")%><br></td>
-						<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashUpdateForm.jsp?cashNo=<%=m.get("cashNo")%>&year=<%=year%>&month=<%=month%>'">수정</button> </td>     
-		   				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/deleteCashAction.jsp?cashNo=<%=m.get("cashNo")%>&year=<%=year%>&month=<%=month%>'">삭제 </button> </td>        
+						<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashUpdateForm.jsp?cashNo=<%=m.get("cashNo")%>&year=<%=year%>&month=<%=month%>&date=<%=date%>'">수정</button> </td>     
+		   				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/deleteCashAction.jsp?cashNo=<%=m.get("cashNo")%>&year=<%=year%>&month=<%=month%>&date=<%=date%>'">삭제 </button> </td>        
 		         </tr>
 		        <%}%>
 		    </table>    
 	
 		</div>
-		<div class = "col-2">&nbsp;</div>
+		
 	</div>
 </div>
 	

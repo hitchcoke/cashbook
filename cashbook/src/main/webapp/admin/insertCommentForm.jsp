@@ -11,6 +11,7 @@
 	return;}
 	
 	String helpNo= request.getParameter("helpNo");
+	String helpMemo= request.getParameter("helpMemo");
 	
 %>
 <!DOCTYPE html>
@@ -46,6 +47,7 @@
             <h3 class="text-center">문의사항 처리  </h3><br>
            
             <form class="mb-5" method="post" action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp">
+            <div> 문의 내용: <%=helpMemo%></div>
 			<div class="row mb-5">
                 <div class="col-md-12 form-group mb-3">
                   <label for="message" class="col-form-label">내용 </label>

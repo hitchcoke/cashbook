@@ -1,17 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> <%@page import="vo.*" %><%@page import="java.util.*" %>
+    pageEncoding="UTF-8"%> <%@page import="vo.*" %><%@page import="java.util.*" %><%@ page import="java.text.*"%>
     <%@page import= "dao.*" %>
 <%
 	if(session.getAttribute("resultMember")==null){
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-	
+	DecimalFormat money = new DecimalFormat("###,###");
 	Member loginMember = (Member)session.getAttribute("resultMember"); 	
 	HelpDao helpdao = new HelpDao();
 	ArrayList<HashMap<String, Object>> list = helpdao.selectMemberHelpList(loginMember.getMemberId());
-		
-		
+	
+	Calendar today = Calendar.getInstance(); // 오늘 날짜
+	int year = today.get(Calendar.YEAR);
+	int month = today.get(Calendar.MONTH);
+	
+	CashDao cash = new CashDao();
+	int monthExpend = cash.selectExpendByMonth(loginMember.getMemberId(), year, month+1);
+	int monthIncome = cash.selectIncomeByMonth(loginMember.getMemberId(), year, month+1);
+	
+	int budget = loginMember.getHope() - monthExpend;
  	
 %>
 
@@ -59,7 +67,7 @@
 	</div><br>
    	
     
-	<div class="container px-11">
+	<div class="col-md-11" style="margin: auto;">
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
@@ -76,8 +84,59 @@
                     <!-- /# column -->
                 </div>
                 <!-- /# row -->
-             </div>
-                   
+             </div>	
+            
+                   		<div class="row">
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib"><i class="ti-money color-primary border-primary"></i>
+                                    </div>
+                                    <div class="stat-content dib">
+                                        <div class="stat-text">이번 달 수입</div>
+                                        <div class="stat-digit"><%=money.format(monthIncome) %>원</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib"><i class="ti-money color-success border-success"></i>
+                                    </div>
+                                    <div class="stat-content dib">
+                                        <div class="stat-text">이번 달 지출</div>
+                                        <div class="stat-digit">-<%=money.format(monthExpend)%>원</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib"><i class="ti-money color-primary border-primary"></i>
+                                    </div>
+                                    <div class="stat-content dib">
+                                        <div class="stat-text">이번 달 예산</div>
+                                       <a href="#" data-toggle="modal" data-target="#add-category" class="stat-digit"><%=money.format(loginMember.getHope()) %>원</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib"><i class="ti-money color-success border-success"></i>
+                                    </div>
+                                    <div class="stat-content dib">
+                                        <div class="stat-text">이번달 남은 예산 </div>
+                                        <div class="stat-digit"><%=money.format(budget)%></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 
                         <div class="row">
 	                        <div class="col-lg-4">
@@ -121,14 +180,40 @@
                           		 </div>
                         	</div>
                         <!-- /# column -->
-                    
+                    </div>
                     
                         
                         <!-- /# column -->
 						</div>
 					</div>
 				</div>
-			</div>
+				<div class="modal fade none-border" id="add-category">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+          
+                            <h4 class="modal-title">
+                              <strong>예산 수정 </strong>
+                            </h4>
+                          </div>
+                          <div class="modal-body">
+                            <form method="post" action="<%=request.getContextPath()%>/updateHopeAction.jsp">
+                             
+                                <div class="col-md-11">
+                                  <label class="control-label">이번 달 예산</label>
+                                  <input class="form-control form-white" placeholder="<%=loginMember.getHope() %>" type="number" name="hope">
+                                  <input type="hidden" name="page" value="home">
+                                </div>
+                             
+		                           <div>&nbsp;&nbsp; <button type="submit" class="btn btn-danger waves-effect waves-light save-category">제출</button></div>
+		                        
+                            </form>
+                          </div>  
+                         
+                        </div>
+                      </div>
+                    </div>
+			
        
     <!-- jquery vendor -->
     <script src="admin/js/lib/jquery.min.js"></script>

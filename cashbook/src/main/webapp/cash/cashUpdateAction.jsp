@@ -10,7 +10,8 @@
 <%
 	
 	
-	 request.setCharacterEncoding("utf-8"); //인코딩
+	 request.setCharacterEncoding("utf-8"); //ì¸ì½ë©
+	 int date = Integer.parseInt(request.getParameter("date"));
 	 int cashNo= Integer.parseInt(request.getParameter("cashNo"));
 	 String cashMemo= request.getParameter("cashMemo");
 	 String cashPrice= request.getParameter("cashPrice");
@@ -22,8 +23,8 @@
 	 
 	 if(request.getParameter("cashMemo")==null||request.getParameter("cashMemo").equals("")||
 		request.getParameter("cashPrice")==null||request.getParameter("cashPrice").equals("")){
-		String msg = URLEncoder.encode("내용을 채워주세요  ","utf-8"); // get방식 주소창에 문자열 인코딩
-		response.sendRedirect(request.getContextPath()+"/updateNoticeForm.jsp?msg="+msg+"&year="+year+"&month="+month+"&cashNo="+cashNo);
+		String msg = URLEncoder.encode("내용을 입력해주세요  ","utf-8"); //
+		response.sendRedirect(request.getContextPath()+"/cash/cashUpdateForm.jsp?msg="+msg+"&year="+year+"&month="+month+"&cashNo="+cashNo+"&date="+date);
 		return;	
 		}
 	 
@@ -35,6 +36,6 @@
 	 
 	 
 	 
-	 response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp?year="+year+"&month="+(month-1));
+	 response.sendRedirect(request.getContextPath()+"/cash/cashOne.jsp?year="+year+"&month="+month+"&date="+date);
 	 
 %>

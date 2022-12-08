@@ -1,7 +1,7 @@
 package dao;
 import util.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import vo.*;
+
 import java.util.*;
 import java.sql.*;
 public class CashDao {
@@ -31,7 +31,7 @@ public class CashDao {
 			while(rs.next()) {
 				HashMap<String, Object> m = new HashMap<String, Object>();
 				m.put("cashMemo", rs.getString("c.cash_memo"));
-				m.put("cashPrice", rs.getString("c.cash_price"));
+				m.put("cashPrice", rs.getLong("c.cash_price"));
 				m.put("cashdate", rs.getString("c.cash_date"));
 				m.put("categoryName", rs.getString("ct.category_name"));
 				m.put("categoryKind", rs.getString("ct.category_kind"));
@@ -149,7 +149,7 @@ public class CashDao {
 				HashMap<String, Object> m = new HashMap<String, Object>();
 				
 					m.put("cashMemo", rs.getString("c.cash_memo"));
-					m.put("cashPrice", rs.getString("c.cash_price"));
+					m.put("cashPrice", rs.getLong("c.cash_price"));
 					m.put("cashdate", rs.getString("c.cash_date"));
 					m.put("categoryName", rs.getString("ct.category_name"));
 					m.put("categoryKind", rs.getString("ct.category_kind"));
@@ -203,4 +203,104 @@ public class CashDao {
 		
 		return 1;
 	}
+	public Cash cashOne(int cashNo) {
+		Cash c = new Cash();
+		Dbutil dbutil =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		ResultSet rs = null;
+		
+		try {
+			dbutil = new Dbutil();
+			conn= dbutil.getConnection();
+			String sql= "SELECT * FROM cash WHERE cash_no=?";
+			stmt= conn.prepareStatement(sql);
+			stmt.setInt(1, cashNo);
+			rs= stmt.executeQuery();
+			
+			if(rs.next()) {
+				c.setCashMemo(rs.getString("cash_memo"));
+				c.setCashPrice(rs.getLong("cash_price"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				dbutil.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return c;
+	}
+	
+	public int selectExpendByMonth(String memberId, int year, int month) {
+		int totalExpenditure = 0;
+		Dbutil dbUtil = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			dbUtil = new Dbutil();
+			conn = dbUtil.getConnection();
+			String sql = "SELECT SUM(c.cash_price) t FROM cash c INNER JOIN  category ct ON c.category_no = ct.category_no WHERE c.member_id = ? AND YEAR(c.cash_date) = ? AND MONTH(c.cash_date) = ? AND ct.category_kind = '지출'";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setInt(2, year);
+			stmt.setInt(3, month);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				totalExpenditure = rs.getInt("t");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(rs, stmt, conn);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return totalExpenditure;
+	}
+	
+	
+	public int selectIncomeByMonth(String memberId, int year, int month) {
+		int totalIncome = 0;
+		Dbutil dbUtil = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			dbUtil = new Dbutil();
+			conn = dbUtil.getConnection();
+			String sql = "SELECT SUM(c.cash_price) t FROM cash c INNER JOIN  category ct ON c.category_no = ct.category_no WHERE c.member_id = ? AND YEAR(c.cash_date) = ? AND MONTH(c.cash_date) = ? AND ct.category_kind = '수입'";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setInt(2, year);
+			stmt.setInt(3, month);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				totalIncome = rs.getInt("t");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(rs, stmt, conn);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return totalIncome;
+	}
+	
 }

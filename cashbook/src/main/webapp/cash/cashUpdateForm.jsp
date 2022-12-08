@@ -6,7 +6,7 @@
 <%@page import="java.util.*" %>
 <%@page import="java.net.URLEncoder" %>  
 <%
-
+request.setCharacterEncoding("utf-8");
 if(session.getAttribute("resultMember")==null){
 	response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 	return;
@@ -21,8 +21,10 @@ request.setCharacterEncoding("utf-8");
 int cashNo= Integer.parseInt(request.getParameter("cashNo"));
 int year = Integer.parseInt(request.getParameter("year"));
 int month = Integer.parseInt(request.getParameter("month"));
-System.out.println(year+""+month);
+int date = Integer.parseInt(request.getParameter("date"));
 
+CashDao cash = new CashDao();
+Cash cs = cash.cashOne(cashNo);
 %>
 
 <!DOCTYPE html>
@@ -56,7 +58,7 @@ System.out.println(year+""+month);
       <div class="row align-items-stretch justify-content-center no-gutters">
         <div class="col-md-7">
           <div class="form h-100 contact-wrap p-5">
-            <h3 class="text-center">회원정보 수정</h3><br>
+            <h3 class="text-center">캐쉬 수정</h3><br>
             <div><%=loginMember.getMemberId() %> 님의 정보수정 </div><br>
             <form class="mb-5" method="post" action="<%=request.getContextPath()%>/cash/cashUpdateAction.jsp">
             <div class="row">
@@ -78,16 +80,17 @@ System.out.println(year+""+month);
                 <div class="row">
 	                <div class="col-md-12 form-group mb-3">
 	                  <label for="budget" class="col-form-label">내용 </label>
-	                  <input type="text" class="form-control" name="cashMemo" id="subject" placeholder="내용">
+	                  <input type="text" class="form-control" name="cashMemo" id="subject" placeholder="<%=cs.getCashMemo()%>">
 	                </div>
 	            </div>
 	            <div class="row">    
 	                <div class="col-md-12 form-group mb-3">
 	                  <label for="budget" class="col-form-label">비용 </label>
-	                  <input type="number" class="form-control" name="cashPrice" id="subject" placeholder="비용 ">
+	                  <input type="number" class="form-control" name="cashPrice" id="subject" placeholder="<%=cs.getCashPrice()%>">
 	                </div>
               	</div>
 				<input type="hidden" name="cashNo" value="<%=cashNo%>">
+				<input type="hidden" name="date" value="<%=date%>">
 				<input type="hidden" name="month" value="<%=month%>">
 				<input type="hidden" name="year" value="<%=year%>">
    			 <br>

@@ -11,6 +11,7 @@
 	return;}
 	
 	String commentNo= request.getParameter("commentNo");
+	String commentMemo= request.getParameter("commentMemo");
 	
 %>
 <!DOCTYPE html>
@@ -50,7 +51,7 @@
                 <div class="col-md-12 form-group mb-3">
                <input type = "hidden" name= "commentNo" value="<%=commentNo%>">
                   <label for="message" class="col-form-label">내용 </label>
-                  <textarea class="form-control" name="commentMemo" id="message" cols="30" rows="4"></textarea>
+                  <textarea class="form-control" name="commentMemo" id="message" placeholder="<%=commentMemo %>" cols="30" rows="4"></textarea>
                 </div>
              </div>
    			 <br>

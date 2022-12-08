@@ -51,7 +51,7 @@
 				<!-- include의 주소에는 context를 사용하지 않는다 편한 액션 중하나 -->
 	</div>
 	<br>
-	<h2 style="text-align:center">문의사항 관리 </h2>
+	<h5 style="text-align:center">문의사항 관리 </h5>
 	<br>
 	<div class="col-md-11" style="margin: auto;">
 		<table class="table table-bordered align-middle">
@@ -86,10 +86,10 @@
 				<td><%=h.get("userId")%></td>
 				<%if(h.get("adminId")==null){ %>
 					<td>답변대기 </td>
-					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/insertCommentForm.jsp?helpNo=<%=h.get("helpNo")%>'">처리</button> </td>
+					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/insertCommentForm.jsp?helpNo=<%=h.get("helpNo")%>&helpMemo=<%=h.get("helpMemo")%>'">처리</button> </td>
 				<%}else{ %>
 					<td>답변완료 </td>
-					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/updateCommentForm.jsp?commentNo=<%=h.get("commentNo")%>'">수정</button>    
+					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/updateCommentForm.jsp?commentNo=<%=h.get("commentNo")%>&commentMemo=<%=h.get("commentMemo")%>'">수정</button>    
    						<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/deleteCommentAction.jsp?commentNo=<%=h.get("commentNo")%>'">삭제 </button> 
    					</td>	     
 				<%} %>

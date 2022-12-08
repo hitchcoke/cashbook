@@ -199,7 +199,9 @@ public class MemberDao {
 			resultMember.setMemberName(rs.getString("member_name"));
 			resultMember.setMemberNo(rs.getInt("member_no"));
 			resultMember.setMemberId(rs.getString("member_id"));
-			resultMember.setMemberLevel(rs.getInt("member_level"));		}
+			resultMember.setMemberLevel(rs.getInt("member_level"));	
+			resultMember.setHope(rs.getInt("hope"));
+		}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -265,7 +267,7 @@ public class MemberDao {
 	
 	public Member memberOneList(String memberId) {
 		
-		Member member= new Member();
+		Member resultMember= new Member();
 		Dbutil db =null;
 		PreparedStatement stmt = null;
 		Connection conn= null;
@@ -281,8 +283,11 @@ public class MemberDao {
 			stmt.setString(1, memberId);
 			 rs = stmt.executeQuery();
 			if(rs.next()) {
-				member.setMemberName(rs.getString("member_name"));
-				member.setCreatedate(rs.getString("createdate"));
+				resultMember.setMemberName(rs.getString("member_name"));
+				resultMember.setMemberNo(rs.getInt("member_no"));
+				resultMember.setMemberId(rs.getString("member_id"));
+				resultMember.setMemberLevel(rs.getInt("member_level"));	
+				resultMember.setHope(rs.getInt("hope"));
 				
 			}
 		}catch(Exception e){
@@ -296,7 +301,7 @@ public class MemberDao {
 		}
 		
 	
-		return member;
+		return resultMember;
 	}
 	public String memberUpdate(String memberId, String memberName) throws Exception{
 		Dbutil db = new Dbutil();
@@ -389,5 +394,35 @@ public class MemberDao {
 		}
 		return lastPage;
 	}
+	public int updateHope(int hope, String memberId) {
+		int row=0;
+		Dbutil dbUtil = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			dbUtil = new Dbutil();
+			conn = dbUtil.getConnection();
+			String sql = "UPDATE member SET hope=? WHERE member_id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, hope);
+			stmt.setString(2, memberId);
+			row=stmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(null, stmt, conn);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return row;	
+		
+	}	
+	
+	
 }
 	
