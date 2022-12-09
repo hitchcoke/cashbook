@@ -39,7 +39,7 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	<link rel="stylesheet" href="../table/css/style.css">
+	<link rel="stylesheet" href="../bootstrap/table/css/style.css">
 
 <title>memberOne</title>
 </head>
@@ -105,8 +105,8 @@
 				답변완료
 				<%}else{%>답변대기<%} %></td>
 				<%if(h.get("adminId")==null){ %>
-					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/inc/updateHelpForm.jsp?helpNo=<%=h.get("helpNo")%>'">수정</button> </td>     
-	   				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/inc/deleteHelpAction.jsp?helpNo=<%=h.get("helpNo")%>'">삭제 </button> </td>       			
+					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/help/updateHelpForm.jsp?helpNo=<%=h.get("helpNo")%>&helpMemo=<%=h.get("helpMemo")%>'">수정</button> </td>     
+	   				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/help/deleteHelpAction.jsp?helpNo=<%=h.get("helpNo")%>'">삭제 </button> </td>       			
 				<%}else{ %>
 					<td></td>
 					<td></td>
@@ -114,7 +114,7 @@
 			</tr>	
 			<%} %>
 		</table>
-		<div><button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/inc/insertHelpForm.jsp'">문의하기  </button></div>
+		<div><button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/help/insertHelpForm.jsp'">문의하기  </button></div>
 		</div>
 		<div class="col-md-1"> </div>
 	</div>	

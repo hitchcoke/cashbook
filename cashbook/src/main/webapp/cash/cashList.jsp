@@ -93,20 +93,20 @@
     <!-- Standard iPhone Touch Icon-->
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
     <!-- Styles -->
-    <link href="../admin/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
-    <link href="../admin/css/lib/chartist/chartist.min.css" rel="stylesheet">
-    <link href="../admin/css/lib/font-awesome.min.css" rel="stylesheet">
-    <link href="../admin/css/lib/themify-icons.css" rel="stylesheet">
-    <link href="../admin/css/lib/owl.carousel.min.css" rel="stylesheet" />
-    <link href="../admin/css/lib/owl.theme.default.min.css" rel="stylesheet" />
-    <link href="../admin/css/lib/weather-icons.css" rel="stylesheet" />
-    <link href="../admin/css/lib/menubar/sidebar.css" rel="stylesheet">
-    <link href="../admin/css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="../admin/css/lib/helper.css" rel="stylesheet">
-    <link href="../admin/css/style.css" rel="stylesheet">
+    <link href="../bootstrap/homePageCss/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
+    <link href="../bootstrap/homePageCss/css/lib/chartist/chartist.min.css" rel="stylesheet">
+    <link href="../bootstrap/homePageCss/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="../bootstrap/homePageCss/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="../bootstrap/homePageCss/css/lib/owl.carousel.min.css" rel="stylesheet" />
+    <link href="../bootstrap/homePageCss/css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="../bootstrap/homePageCss/css/lib/weather-icons.css" rel="stylesheet" />
+    <link href="../bootstrap/homePageCss/css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="../bootstrap/homePageCss/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap/homePageCss/css/lib/helper.css" rel="stylesheet">
+    <link href="../bootstrap/homePageCss/css/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-	<link rel="stylesheet" href="../table/css/style.css">
+	<link rel="stylesheet" href="../bootstrap/table/css/style.css">
 	
 </head>
 <body>
@@ -182,7 +182,7 @@
 	  	<div>
 	      <!-- 달력 -->
 	      <table class="table table-bordered align-middle">
-	         <tr class="mt-4 p-5 bg-primary text-white rounded">
+	         <tr class="mt-4 p-5 bg-primary text-white rounded" style="text-align:center">
 	            <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
 	         </tr>
 	         <tr>
@@ -248,7 +248,7 @@
                             </h4>
                           </div>
                           <div class="modal-body">
-                            <form method="post" action="<%=request.getContextPath()%>/updateHopeAction.jsp">
+                            <form method="post" action="<%=request.getContextPath()%>/member/updateHopeAction.jsp">
                              
                                 <div class="col-md-11">
                                   <label class="control-label">이번 달 예산</label>
@@ -272,24 +272,24 @@
 	<%
 											}%>	
 	<!-- jquery vendor -->
-    <script src="../admin/js/lib/jquery.min.js"></script>
-    <script src="../admin/js/lib/jquery.nanoscroller.min.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/jquery.min.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/jquery.nanoscroller.min.js"></script>
     <!-- nano scroller -->
-    <script src="../admin/js/lib/menubar/sidebar.js"></script>
-    <script src="../admin/js/lib/preloader/pace.min.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/menubar/sidebar.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/preloader/pace.min.js"></script>
     <!-- sidebar -->
 
-    <script src="../admin/js/lib/bootstrap.min.js"></script>
-    <script src="../admin/js/scripts.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/bootstrap.min.js"></script>
+    <script src="../bootstrap/homePageCss/js/scripts.js"></script>
     <!-- bootstrap -->
 
-    <script src="../admin/js/lib/calendar-2/moment.latest.min.js"></script>
-    <script src="../admin/js/lib/calendar-2/pignose.calendar.min.js"></script>
-    <script src="../admin/js/lib/calendar-2/pignose.init.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/calendar-2/moment.latest.min.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/calendar-2/pignose.calendar.min.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/calendar-2/pignose.init.js"></script>
 
 
-    <script src="../admin/js/lib/weather/jquery.simpleWeather.min.js"></script>
-    <script src="../admin/js/lib/weather/weather-init.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/weather/jquery.simpleWeather.min.js"></script>
+    <script src="../bootstrap/homePageCss/js/lib/weather/weather-init.js"></script>
 
 </body>
 </html>

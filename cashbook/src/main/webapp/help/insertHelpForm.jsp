@@ -1,19 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %><%@ page import="vo.*"  %>
-<%@ page import="java.util.*" %>
-
+<%@ page import="java.util.*" %><%@page import="java.net.URLEncoder" %>  
+<%@page import="dao.*" %>
 <%
 	if(session.getAttribute("resultMember")==null){
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-
+	
 	Member loginMember = (Member)session.getAttribute("resultMember"); 	
 
-	
-	
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,35 +28,32 @@
 
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../bootstrap/insert/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap//insert/css/bootstrap.min.css">
     
     <!-- Style -->
     <link rel="stylesheet" href="../bootstrap/insert/css/style.css">
-<title>memberupdate</title>
+<title>insertHelpForm</title>
+
 </head>
 <body>
-  <div class="content">
-    
-    <div class="container">
-      <div class="row align-items-stretch justify-content-center no-gutters">
-        <div class="col-md-7">
-          <div class="form h-100 contact-wrap p-5">
-            <h3 class="text-center">회원정보 수정</h3><br>
-            <div><%=loginMember.getMemberId() %> 님의 정보수정 </div><br>
-            <form class="mb-5" method="post" action="<%=request.getContextPath()%>/member/updateMemberAction.jsp">
-                <div class="row">
-	                <div class="col-md-12 form-group mb-3">
-	                  <label for="budget" class="col-form-label">이름 </label>
-	                  <input type="text" class="form-control" name="memberName" id="subject" placeholder="이름 ">
+	<div class="content">
+	    <div class="container">
+	      <div class="row align-items-stretch justify-content-center no-gutters">
+	        <div class="col-md-7">
+	          <div class="form h-100 contact-wrap p-5">
+	            <h3 class="text-center">문의사항 작성</h3><br>
+	            <form class="mb-5" method="post" action="<%=request.getContextPath()%>/help/insertHelpAction.jsp">
+		            <div class="col-md-12 form-group mb-3">
+		                  <label for="message" class="col-form-label">내용 </label>
+		                  <textarea class="form-control" name="helpMemo" id="message" cols="30" rows="4"></textarea>
+	              	</div>
+	
+	   			 <br>
+	              <div class="row justify-content-center">
+	                <div class="col-md-5 form-group text-center">
+	                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">수정 </button>
+	                
 	                </div>
-              	</div>
-
-   			 <br>
-              <div class="row justify-content-center">
-                <div class="col-md-5 form-group text-center">
-                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">수정 </button>
-                
-                </div>
               </div>
             </form>
           </div>

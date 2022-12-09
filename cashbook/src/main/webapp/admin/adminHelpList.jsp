@@ -43,7 +43,7 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	<link rel="stylesheet" href="../table/css/style.css">
+	<link rel="stylesheet" href="../bootstrap/table/css/style.css">
 
 <body>
 	<div>

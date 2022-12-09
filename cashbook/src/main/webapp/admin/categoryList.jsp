@@ -33,7 +33,7 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	<link rel="stylesheet" href="../table/css/style.css">
+	<link rel="stylesheet" href="../bootstrap/table/css/style.css">
 </head>
 <body>
 <div>
@@ -58,7 +58,7 @@
 				<td><%=c.getCategoryKind() %></td>
 				<td><%=c.getCategoryName() %></td>
 				<td><%=c.getUpdatedate() %></td>
-				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/updateCategoryForm.jsp?categoryNo=<%=c.getCategoryNo()%>'">수정</button> </td>     
+				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/updateCategoryForm.jsp?categoryNo=<%=c.getCategoryNo()%>&categoryName=<%=c.getCategoryName()%>'">수정</button> </td>     
 	   			<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/admin/deleteCategoryAction.jsp?categoryNo=<%=c.getCategoryNo()%>'">삭제 </button> </td>        
 			</tr>
 		<%}%>

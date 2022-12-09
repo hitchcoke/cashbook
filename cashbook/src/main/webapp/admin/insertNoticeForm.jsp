@@ -27,14 +27,14 @@
 	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="..insert/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="../bootstrap/insert/fonts/icomoon/style.css">
 
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../insert/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/insert/css/bootstrap.min.css">
     
     <!-- Style -->
-    <link rel="stylesheet" href="../insert/css/style.css">
+    <link rel="stylesheet" href="../bootstrap/insert/css/style.css">
 <title>noticeUpdateForm</title>
 
 </head>
@@ -85,10 +85,10 @@
               </div> -->
     
 
-    <script src="../insert/js/jquery-3.3.1.min.js"></script>
-    <script src="../insert/js/popper.min.js"></script>
-    <script src="../insert/js/bootstrap.min.js"></script>
-    <script src="../insert/js/jquery.validate.min.js"></script>
-    <script src="../insert/js/main.js"></script>
+    <script src="../bootstrap/insert/js/jquery-3.3.1.min.js"></script>
+    <script src="../bootstrap/insert/js/popper.min.js"></script>
+    <script src="../bootstrap/insert/js/bootstrap.min.js"></script>
+    <script src="../bootstrap/insert/js/jquery.validate.min.js"></script>
+    <script src="../bootstrap/insert/js/main.js"></script>
 </body>
 </html>

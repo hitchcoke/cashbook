@@ -36,15 +36,15 @@
    		
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="sourse/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="bootstrap/loginCss/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="sourse/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="bootstrap/loginCss/css/owl.carousel.min.css">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="sourse/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/loginCss/css/bootstrap.min.css">
     
     <!-- Style -->
-    <link rel="stylesheet" href="sourse/css/style.css">
+    <link rel="stylesheet" href="bootstrap/loginCss/css/style.css">
 </head>
 <body>
  <header class="bg-dark py-5">
@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="image/bgm.png"></div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="image/img.png"></div>
                     </div>
                 </div>
             </header>
@@ -137,7 +137,7 @@
                 
               </div>
               
-              <a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입 </a>
+              <a href="<%=request.getContextPath()%>/member/insertMemberForm.jsp">회원가입 </a>
               <input type="submit" value="로그인 " class="btn btn-block btn-primary">
               
             </form>
@@ -156,14 +156,14 @@
 	}%>
   </div>
 
-    <script src="sourse/js/jquery-3.3.1.min.js"></script>
-    <script src="sourse/js/popper.min.js"></script>
-    <script src="sourse/js/bootstrap.min.js"></script>
-    <script src="sourse/js/main.js"></script>
-   <script src="table/js/jquery.min.js"></script>
-  <script src="table/js/popper.js"></script>
-  <script src="table/js/bootstrap.min.js"></script>
-  <script src="table/js/main.js"></script>
+    <script src="bootstrap/loginCss/js/jquery-3.3.1.min.js"></script>
+    <script src="bootstrap/loginCss/js/popper.min.js"></script>
+    <script src="bootstrap/loginCss/js/bootstrap.min.js"></script>
+    <script src="bootstrap/loginCss/js/main.js"></script>
+	   <script src="bootstrap/table/js/jquery.min.js"></script>
+	  <script src="bootstrap/table/js/popper.js"></script>
+	  <script src="bootstrap/table/js/bootstrap.min.js"></script>
+	  <script src="bootstrap/table/js/main.js"></script>
     
 	
 </body>
