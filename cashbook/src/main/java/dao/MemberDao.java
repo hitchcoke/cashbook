@@ -153,7 +153,7 @@ public class MemberDao {
 			
 			stmt1.executeUpdate();
 			
-			msg = URLEncoder.encode(" 회원탈퇴 완료 안녕히  ","utf-8");
+			msg = URLEncoder.encode(" 회원탈퇴 완료  ","utf-8");
 			target="/loginForm.jsp?msg="+msg;
 			
 			stmt1.close();
@@ -287,6 +287,7 @@ public class MemberDao {
 				resultMember.setMemberNo(rs.getInt("member_no"));
 				resultMember.setMemberId(rs.getString("member_id"));
 				resultMember.setMemberLevel(rs.getInt("member_level"));	
+				resultMember.setCreatedate(rs.getString("createdate"));
 				resultMember.setHope(rs.getInt("hope"));
 				
 			}

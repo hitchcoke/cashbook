@@ -97,7 +97,7 @@ public class CashDao {
 			 dbutil = new Dbutil();
 			 conn = dbutil.getConnection();
 		
-			String sql="UPDATE cash SET cash_memo= ?, cash_price= ?, category_no= ? WHERE cash_no= ?;";
+			String sql="UPDATE cash SET cash_memo= ?, cash_price= ?, category_no= ? updatedate= now() WHERE cash_no= ?;";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, cashMemo);
 			stmt.setString(2, cashPrice);
@@ -181,7 +181,7 @@ public class CashDao {
 		dbutil = new Dbutil();
 		conn = dbutil.getConnection();
 		
-		String sql="INSERT INTO cash(cash_memo, cash_price, category_no, cash_date, member_id) values (?,?,?,?,?);";
+		String sql="INSERT INTO cash(cash_memo, cash_price, category_no, cash_date, member_id, updatedate, createdate) values (?,?,?,?,?,now(),now());";
 		stmt= conn.prepareStatement(sql);
 		stmt.setString(1, cashMemo);
 		stmt.setString(2, cashPrice);
@@ -237,7 +237,7 @@ public class CashDao {
 	}
 	
 	public int selectExpendByMonth(String memberId, int year, int month) {
-		int totalExpenditure = 0;
+		int totalExpend = 0;
 		Dbutil dbUtil = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -254,7 +254,7 @@ public class CashDao {
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				totalExpenditure = rs.getInt("t");
+				totalExpend = rs.getInt("t");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -266,7 +266,7 @@ public class CashDao {
 			}
 		}
 		
-		return totalExpenditure;
+		return totalExpend;
 	}
 	
 	

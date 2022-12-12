@@ -86,7 +86,7 @@
                 <!-- /# row -->
              </div>	
             
-                   		<div class="row">
+                   	<div class="row">
                         <div class="col-lg-3">
                             <div class="card">
                                 <div class="stat-widget-one">
@@ -148,9 +148,8 @@
 	                                <span style="float: right;"><a href="<%=request.getContextPath()%>/cash/cashList.jsp">more</a></span>
 	                            </div>
 	                            <!-- /# card -->
-	                        </div>     
-	                        <!-- /# column -->
-	                        <div class="col-lg-8">
+	                        </div> 
+	                       <div class="col-lg-8">
 	                            <div class="card">
 	                                <div class="card-body">
 	                                    <div class="table-responsive">
@@ -179,9 +178,11 @@
 	                                </div>
                           		 </div>
                         	</div>
+	                        <!-- /# column -->
+	                       
                         <!-- /# column -->
                     </div>
-                    
+                     
                         
                         <!-- /# column -->
 						</div>
@@ -231,7 +232,9 @@
     <script src="bootstrap/homePageCss/js/lib/calendar-2/pignose.calendar.min.js"></script>
     <script src="bootstrap/homePageCss/js/lib/calendar-2/pignose.init.js"></script>
 
-
+	<script src="bootstrap/homePageCss/js/lib/chart-js/Chart.bundle.js"></script>
+    <script src="bootstrap/homePageCss/js/lib/chart-js/chartjs-init.js"></script>
+	
     <script src="bootstrap/homePageCss/js/lib/weather/jquery.simpleWeather.min.js"></script>
     <script src="bootstrap/homePageCss/js/lib/weather/weather-init.js"></script>
     

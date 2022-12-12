@@ -130,10 +130,17 @@ if(month<10){
 		        <%}%>
 		    </table>    
 	
-		</div>
-		
+		</div>	
 	</div>
 </div>
+<br>
+			<%
+		if(request.getParameter("msg")!=null){
+		%>
+			<div class="alert alert-primary" role="alert"><%=request.getParameter("msg")%></div>
+		<% 			
+			}
+		%>
 	
 </body>
 </html>

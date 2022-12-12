@@ -56,7 +56,7 @@
    			 <br>
               <div class="row justify-content-center">
                 <div class="col-md-5 form-group text-center">
-                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">탈퇴하</button>
+                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">탈퇴하기</button>
                 
                 </div>
               </div>
