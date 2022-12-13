@@ -10,7 +10,7 @@
 <%
 	
 	
-	 request.setCharacterEncoding("utf-8"); //ì¸ì½ë©
+	 request.setCharacterEncoding("utf-8"); 
 	 int date = Integer.parseInt(request.getParameter("date"));
 	 int cashNo= Integer.parseInt(request.getParameter("cashNo"));
 	 String cashMemo= request.getParameter("cashMemo");
@@ -23,15 +23,15 @@
 	 
 	 if(request.getParameter("cashMemo")==null||request.getParameter("cashMemo").equals("")||
 		request.getParameter("cashPrice")==null||request.getParameter("cashPrice").equals("")){
-		String msg = URLEncoder.encode("내용을 입력해주세요  ","utf-8"); //
+		 String msg = URLEncoder.encode("내용을 채워주세요  ","utf-8");  //
 		response.sendRedirect(request.getContextPath()+"/cash/cashUpdateForm.jsp?msg="+msg+"&year="+year+"&month="+month+"&cashNo="+cashNo+"&date="+date);
 		return;	
 		}
 	 
 	 
 	 CashDao cashdao= new CashDao();
-	 cashdao.updateCash(cashNo, cashMemo, cashPrice, categoryNo);
-	 
+	 int row=cashdao.updateCash(cashNo, cashMemo, cashPrice, categoryNo);
+	 System.out.println(row);
 	 //2016-04-05
 	 
 	 

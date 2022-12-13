@@ -88,6 +88,7 @@ public class CashDao {
 	}
 	public int updateCash(int cashNo, String cashMemo, String cashPrice, int categoryNo) {
 		
+		int row= 0;
 		Dbutil dbutil =null;
 		PreparedStatement stmt = null;
 		Connection conn= null;
@@ -97,14 +98,14 @@ public class CashDao {
 			 dbutil = new Dbutil();
 			 conn = dbutil.getConnection();
 		
-			String sql="UPDATE cash SET cash_memo= ?, cash_price= ?, category_no= ? updatedate= now() WHERE cash_no= ?;";
+			String sql="UPDATE cash SET cash_memo= ?, cash_price= ?, category_no= ?, updatedate= now() WHERE cash_no= ?;";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, cashMemo);
 			stmt.setString(2, cashPrice);
 			stmt.setInt(3, categoryNo);
 			stmt.setInt(4, cashNo);
 		
-			stmt.executeUpdate();
+			row=stmt.executeUpdate();
 			
 		}catch(Exception e) {
 			
@@ -116,7 +117,7 @@ public class CashDao {
 			}
 		}
 	
-		return 1;
+		return row;
 	}
 	//사용 용도 cashOne.jsp
 	public ArrayList<HashMap<String, Object>> selecetCashListByDate(String memberId, int year, int month, int date){
@@ -301,6 +302,121 @@ public class CashDao {
 		}
 		
 		return totalIncome;
+	}
+	
+	public ArrayList<HashMap<String, Object>> selectYearOfCashDate(String memberId, int year){
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Dbutil dbUtil = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			dbUtil=new Dbutil();
+			conn=dbUtil.getConnection();
+			
+			String sql="SELECT YEAR(t2.cashDate) 년, MONTH(t2.cashDate) mon"
+					+ ", COUNT(t2.importCash) countImport"
+					+ ", SUM(t2.importCash) sumImport"
+					+ ", ROUND(AVG(t2.importCash)) avgImport"
+					+ ", COUNT(t2.exportCash) countExport"
+					+ ", SUM(t2.exportCash) sumExport"
+					+ ", ROUND(AVG(t2.exportCash)) avgExport"
+					+ " FROM"
+						+ "	(SELECT "
+						+ "memberId"
+						+ ", cashNo"
+						+ ", cashDate"
+						+ ", IF(categoryKind = '수입', cashPrice, null) importCash"
+						+ ", IF(categoryKind = '지출', cashPrice, null) exportCash"
+							+ "	FROM (SELECT cs.cash_no cashNo"
+							+ ", cs.cash_date cashDate"
+							+ ", cs.cash_price cashPrice"
+							+ ", cg.category_kind categoryKind"
+							+ ", cs.member_id memberId"
+							+ "	FROM cash cs"
+							+ " INNER JOIN category cg ON cs.category_no = cg.category_no) t) t2"
+					+ " WHERE t2.memberId = ? AND YEAR(t2.cashDate)= ?"
+					+ " GROUP by MONTH(t2.cashDate)"
+					+ " ORDER BY YEAR(t2.cashDate), MONTH(t2.cashDate);";
+			stmt= conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setInt(2, year);
+			
+			rs=stmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				HashMap<String, Object> m = new HashMap<String, Object>();
+				
+				m.put("mon", rs.getString("mon"));
+				m.put("countImport", rs.getString("countImport"));
+				m.put("sumImport", rs.getLong("sumImport"));
+				m.put("avgImport", rs.getLong("avgImport"));
+				m.put("countExport", rs.getString("countExport"));
+				m.put("sumExport", rs.getLong("sumExport"));
+				m.put("avgExport", rs.getLong("avgExport"));
+				list.add(m);
+		
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				dbUtil.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	public HashMap<String, Object> rankCashCategoryByMonth(int year, int month, String memberId){
+		Dbutil dbUtil = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		HashMap<String, Object> rank= new HashMap<String, Object>();
+		
+		try {
+			dbUtil= new Dbutil();
+			conn= dbUtil.getConnection();
+			
+			String sql="SELECT c.category_no, c2.category_name, sum(c.cash_price) sum, COUNT(*), "
+					+ "rank() over(order by sum(c.cash_price) DESC) ranking"
+					+ " FROM cash c inner join category c2 on c.category_no = c2.category_no"
+					+ " WHERE c2.category_kind = '지출' AND YEAR(c.cash_date) = ? AND MONTH(cash_date)= ? AND member_id = ?"
+					+ " group by c2.category_no"
+					+ " order by sum(c.cash_price) DESC";
+			stmt=conn.prepareStatement(sql);
+			stmt.setInt(1, year);
+			stmt.setInt(2, month);
+			stmt.setString(3, memberId);
+			
+			rs=stmt.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getInt("ranking")==1) {
+					rank.put("categoryName", rs.getString("c2.category_name"));
+					rank.put("sum", rs.getLong("sum"));
+					rank.put("count", rs.getInt("count(*)"));
+					
+				}
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();		
+		}finally {
+			try {
+				dbUtil.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return rank;
 	}
 	
 }

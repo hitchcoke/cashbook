@@ -4,7 +4,7 @@
 <%@ page import="java.util.*" %><%@page import="java.net.URLEncoder" %>
 <%@ page import="dao.*" %>
 
-<%
+<%	request.setCharacterEncoding("utf-8");
 	if(session.getAttribute("resultMember")==null){
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
@@ -50,8 +50,9 @@
 	</div>
 	<br>
 	<br>
+	<div class="col-md-11" style="margin: auto;">
 	<div class="row">
-	<div class="col-md-1"> </div>
+	
 		 <div class="col-md-3">
 			<div class="card" style="width: 18rem; margin:0 auto; ;">
 		  		<img src="<%=request.getContextPath()%>/image/face.png" class="card-img-top">
@@ -71,7 +72,7 @@
 			    </div>
 	 		</div>
 	 	</div>
-	 <div class="col-md-7 contents">		
+	 <div class="col-md-9 contents">		
 	 <table class="table table-bordered align-middle" border="1">
 			<tr class="mt-4 p-5 bg-primary text-white rounded">
 				<th>문의 내용</th>
@@ -105,7 +106,7 @@
 				답변완료
 				<%}else{%>답변대기<%} %></td>
 				<%if(h.get("adminId")==null){ %>
-					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/help/updateHelpForm.jsp?helpNo=<%=h.get("helpNo")%>&helpMemo=<%=h.get("helpMemo")%>'">수정</button> </td>     
+					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/help/updateHelpForm.jsp?helpNo=<%=h.get("helpNo")%>'">수정</button> </td>  
 	   				<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/help/deleteHelpAction.jsp?helpNo=<%=h.get("helpNo")%>'">삭제 </button> </td>       			
 				<%}else{ %>
 					<td></td>
@@ -116,7 +117,7 @@
 		</table>
 		<div><button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/help/insertHelpForm.jsp'">문의하기  </button></div>
 		</div>
-		<div class="col-md-1"> </div>
+	</div>
 	</div>	
 </body>
 </html>	   

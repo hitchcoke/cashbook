@@ -4,7 +4,7 @@
 <%@ page import="java.util.*" %><%@page import="java.net.URLEncoder" %>
 <%@ page import="dao.*" %>
 
-<%
+<%	
 	Member loginMember = (Member)session.getAttribute("resultMember");
 	if(loginMember==null|| loginMember.getMemberLevel() < 1 ){
 		String msg = URLEncoder.encode("권한이 없습니다 ","utf-8");
@@ -59,7 +59,7 @@
 				<th width="10%">번호</th>
 				<th>내용</th>
 				<th width="10%">작성일</th>
-				<th width="5%">작성자 </th>
+				<th width="10%">작성자 </th>
 				<th width="10%">처리상태</th>
 				<th width="15%">처리 </th>
 			</tr>

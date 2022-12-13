@@ -2,7 +2,7 @@
 <%@ page import="java.sql.*" %><%@ page import="vo.*"  %>
 <%@ page import="java.util.*" %>
 
-<%
+<%	request.setCharacterEncoding("utf-8");
 	if(session.getAttribute("resultMember")==null){
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;

@@ -15,11 +15,15 @@
 	int year = today.get(Calendar.YEAR);
 	int month = today.get(Calendar.MONTH);
 	
-	CashDao cash = new CashDao();
-	int monthExpend = cash.selectExpendByMonth(loginMember.getMemberId(), year, month+1);
-	int monthIncome = cash.selectIncomeByMonth(loginMember.getMemberId(), year, month+1);
+	CashDao cashdao = new CashDao();
+	int monthExpend = cashdao.selectExpendByMonth(loginMember.getMemberId(), year, month+1);
+	int monthIncome = cashdao.selectIncomeByMonth(loginMember.getMemberId(), year, month+1);
 	
 	int budget = loginMember.getHope() - monthExpend;
+	
+	ArrayList<HashMap<String,Object>> cash = cashdao.selectYearOfCashDate(loginMember.getMemberId(), year);
+ 	HashMap<String, Object> rank = cashdao.rankCashCategoryByMonth(year, month+1, loginMember.getMemberId());
+ 	
  	
 %>
 
@@ -72,13 +76,14 @@
         <div class="main">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8 p-r-0 title-margin-right">
+                    <div class="col-lg-6 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
                                 <h1>반갑습니다 <%=loginMember.getMemberId()%>님</h1>
                             </div>
                         </div>
                     </div>
+                  
                     <!-- /# column -->
                     
                     <!-- /# column -->
@@ -139,17 +144,76 @@
                     </div>
                 
                         <div class="row">
-	                        <div class="col-lg-4">
-	                            <div class="card">
-	                           
-	                                <div class="card-body">
-	                                    <div class="year-calendar"></div>
-	                                </div>
-	                                <span style="float: right;"><a href="<%=request.getContextPath()%>/cash/cashList.jsp">more</a></span>
-	                            </div>
+                        	
+                        	 <div class="col-lg-4">
+					              <div class="card">
+					                <div class="stat-widget-two">
+					                  <div class="stat-content">
+					                    <div class="stat-text">이번 달 가장 지출이 많은 곳은 <%=rank.get("categoryName") %></div>
+					                    <div class="stat-digit">
+					                    	<%=rank.get("count") %>건<br>
+					                      <%=money.format((long)rank.get("sum"))%>원
+					                      </div>
+					                  </div>
+					                  
+					                </div>
+					              </div>                    
+		                         <div class="card">
+		                                <div class="card-body">
+		                                    <div class="year-calendar"></div>
+		                                </div>
+		                                <span style="float: right;"><a href="<%=request.getContextPath()%>/cash/cashList.jsp">more</a></span>
+		                            </div>
+	                         </div>
+	                       
 	                            <!-- /# card -->
-	                        </div> 
-	                       <div class="col-lg-8">
+	                            <div class="col-lg-8">
+	                            <div class="card">
+	                                <div class="card-body">
+	                                    <div class="table-responsive">
+	                                        <table class="table student-data-table m-t-20">
+	                                            <thead>
+	                                                <tr>
+	                                                	<th>월</th>
+	                                            
+	                                                	<th>수입합계</th>
+	                                                	<th>수입평균</th>
+	                                             
+	                                                	<th>지출합계</th>
+	                                                	<th>지출평균</th>
+	                                                	<th>총합</th>
+	                                             
+	                                                </tr>
+	                                            </thead>
+	                                            <tbody>
+	                                               <%for(HashMap<String, Object> c : cash){ %>
+		                                               <tr>
+		                                               		<td><%=c.get("mon") %></td>
+		                                               		
+		                                               		<td><%=money.format((long)c.get("sumImport")) %>원</td>
+		                                               		<td><%=money.format((long)c.get("avgImport")) %>원</td>
+		                                               		
+		                                               		<td>-<%=money.format((long)c.get("sumExport")) %>원</td>
+		                                               		<td>-<%=money.format((long)c.get("avgExport")) %>원</td>
+		                                               		
+		                                               		<td><%=money.format((long)c.get("sumImport")-(long)c.get("sumExport")) %>원</td>
+		                                               </tr>
+	                                               <%} %>		
+	                                            </tbody>
+	                                        </table>
+	                                    </div>
+	                                
+                          		 </div>
+                        	</div>
+	                        </div>
+	                         
+	                        <!-- /# column -->
+	                       
+                        <!-- /# column -->
+                   		 </div>
+                   <div class="row">
+                        	 
+                        	  <div class="col-lg-12">
 	                            <div class="card">
 	                                <div class="card-body">
 	                                    <div class="table-responsive">
@@ -158,7 +222,7 @@
 	                                                <tr>
 	                                                   <th>문의 내용</th>
 														<th width="10%">작성일</th>
-														<th width="12%">처리상태</th>
+														
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -178,11 +242,7 @@
 	                                </div>
                           		 </div>
                         	</div>
-	                        <!-- /# column -->
-	                       
-                        <!-- /# column -->
-                    </div>
-                     
+                        	</div>
                         
                         <!-- /# column -->
 						</div>

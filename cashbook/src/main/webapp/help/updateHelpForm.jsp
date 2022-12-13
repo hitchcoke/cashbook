@@ -10,8 +10,10 @@
 	}
 	
 	Member loginMember = (Member)session.getAttribute("resultMember"); 	
-	String helpNo = request.getParameter("helpNo");
-	String helpMemo= request.getParameter("helpMemo");
+	int helpNo = Integer.parseInt(request.getParameter("helpNo"));
+	HelpDao help= new HelpDao();
+	Help h = help.helpOne(helpNo);
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -46,7 +48,7 @@
 	            <form class="mb-5" method="post" action="<%=request.getContextPath()%>/help/updateHelpAction.jsp">
 		            <div class="col-md-12 form-group mb-3">
 		                  <label for="message" class="col-form-label">내용 </label>
-		                  <textarea class="form-control" name="helpMemo" id="message" cols="30" rows="4" placeholder="<%=helpMemo%>"></textarea>
+		                  <textarea class="form-control" name="helpMemo" id="message" cols="30" rows="1" placeholder="<%= h.getHelpMemo() %>"></textarea>
 	              	</div>
 					<input type= "hidden" name="helpNo" value="<%=helpNo%>">
 	   			 <br>

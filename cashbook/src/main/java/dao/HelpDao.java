@@ -1,9 +1,12 @@
 package dao;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import util.*;
-
-import java.util.*;
+import util.Dbutil;
+import vo.Help;
 
 public class HelpDao {
 	public ArrayList<HashMap<String, Object>> selectMemberHelpList(String memberId){
@@ -221,5 +224,38 @@ public class HelpDao {
 		return 1;
 		
 		
+	}
+	public Help helpOne(int helpNo) {
+		Help help= new Help();
+		Dbutil db =null;
+		PreparedStatement stmt = null;
+		Connection conn= null;
+		ResultSet rs =null;
+		
+		try {
+			db= new Dbutil();
+			conn= db.getConnection();
+			String sql="SELECT * FROM help WHERE help_no= ?";
+			stmt= conn.prepareStatement(sql);
+			stmt.setInt(1, helpNo);
+			
+			rs= stmt.executeQuery();
+			
+			if(rs.next()) {
+				help.setHelpMemo(rs.getString("help_memo"));
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				db.close(rs, stmt, conn);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return help;
+				
 	}
 }

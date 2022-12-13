@@ -4,7 +4,7 @@
     
 <%
 	if(session.getAttribute("resultMember")!=null){
-		response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp");
+		response.sendRedirect(request.getContextPath()+"/home.jsp");
 		return;
 	}
 	int currentPage= 1;

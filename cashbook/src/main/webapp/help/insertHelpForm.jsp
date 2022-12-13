@@ -45,13 +45,13 @@
 	            <form class="mb-5" method="post" action="<%=request.getContextPath()%>/help/insertHelpAction.jsp">
 		            <div class="col-md-12 form-group mb-3">
 		                  <label for="message" class="col-form-label">내용 </label>
-		                  <textarea class="form-control" name="helpMemo" id="message" cols="30" rows="4"></textarea>
+		                  <textarea class="form-control" name="helpMemo" id="message" cols="30" rows="1"></textarea>
 	              	</div>
 	
 	   			 <br>
 	              <div class="row justify-content-center">
 	                <div class="col-md-5 form-group text-center">
-	                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">수정 </button>
+	                  <button type="submit" class="btn btn-block btn-primary rounded-0 py-2 px-4">작성 </button>
 	                
 	                </div>
               </div>
