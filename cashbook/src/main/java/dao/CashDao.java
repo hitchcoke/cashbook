@@ -400,6 +400,7 @@ public class CashDao {
 			while(rs.next()) {
 				if(rs.getInt("ranking")==1) {
 					rank.put("categoryName", rs.getString("c2.category_name"));
+					rank.put("categoryNo", rs.getInt("c.category_no"));
 					rank.put("sum", rs.getLong("sum"));
 					rank.put("count", rs.getInt("count(*)"));
 					
@@ -417,6 +418,48 @@ public class CashDao {
 		}
 		
 		return rank;
+	}
+	public ArrayList<Cash> cashCategoryByMonth(int month, String memberId, int categoryNo, int year) {
+		Dbutil dbUtil = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Cash> list= new ArrayList<Cash>();
+		
+		try {
+			dbUtil=new Dbutil();
+			conn=dbUtil.getConnection();
+			
+			String sql= "SELECT * FROM cash WHERE MONTH(cash_date)= ? AND member_id= ? AND category_no= ? AND YEAR(cash_date)= ?";
+			stmt= conn.prepareStatement(sql);
+			stmt.setInt(1, month);
+			stmt.setString(2, memberId);
+			stmt.setInt(3, categoryNo);
+			stmt.setInt(4, year);
+			
+			rs=stmt.executeQuery();
+			
+			while(rs.next()) {
+				Cash c= new Cash();
+				c.setCategoryNo(rs.getInt("category_no"));
+				c.setCashMemo(rs.getString("cash_memo"));
+				c.setCashPrice(rs.getLong("cash_price"));
+				c.setCreatedate(rs.getString("cash_date"));
+				
+				list.add(c);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				dbUtil.close(rs, stmt, conn);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 	
 }

@@ -57,7 +57,7 @@ if(month<10){
    			 
   		<div class="col-4">	
 			<h5>&nbsp;가계부 추가 </h5>
-			   <form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
+			   <form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post" id="cashinsert">
 			   <input type="hidden" value="<%=date%>" name="date">
 			   		<table>
 			   			<tr>
@@ -92,11 +92,11 @@ if(month<10){
 			   			</tr>
 			   			<tr>
 			   				<td>
-			   					<textarea rows="3" cols="50" name="cashMemo" class="form-control"placeholder="내용 "></textarea>
+			   					<textarea rows="3" cols="50" name="cashMemo" class="form-control"placeholder="내용 " id="text"></textarea>
 			   				</td>
 			   			</tr>
 			   		</table>
-			   			<button type="submit" class="btn btn-outline-primary btn-lg">추가</button>      
+			   			<button class="btn btn-outline-primary btn-lg" id="Btn">추가</button>      
 			   </form>
 			</div>
 		
@@ -141,6 +141,6 @@ if(month<10){
 		<% 			
 			}
 		%>
-	
+
 </body>
 </html>

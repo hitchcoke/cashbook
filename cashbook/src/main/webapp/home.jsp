@@ -23,6 +23,9 @@
 	
 	ArrayList<HashMap<String,Object>> cash = cashdao.selectYearOfCashDate(loginMember.getMemberId(), year);
  	HashMap<String, Object> rank = cashdao.rankCashCategoryByMonth(year, month+1, loginMember.getMemberId());
+ 	System.out.print((int)rank.get("categoryNo"));
+ 	
+ 	ArrayList<Cash> cashList= cashdao.cashCategoryByMonth(month+1, loginMember.getMemberId(), (int)rank.get("categoryNo"), year);
  	
  	
 %>
@@ -149,7 +152,8 @@
 					              <div class="card">
 					                <div class="stat-widget-two">
 					                  <div class="stat-content">
-					                    <div class="stat-text">이번 달 가장 지출이 많은 곳은 <%=rank.get("categoryName") %></div>
+					                  	
+					                    <div class="stat-text"><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">이번 달 가장 지출이 많은 곳은 <%=rank.get("categoryName") %></a></div>
 					                    <div class="stat-digit">
 					                    	<%=rank.get("count") %>건<br>
 					                      <%=money.format((long)rank.get("sum"))%>원
@@ -274,6 +278,42 @@
                         </div>
                       </div>
                     </div>
+                    
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h1 class="modal-title fs-5" id="exampleModalLabel">이번 달 <%=rank.get("categoryName") %> 지출 내역 </h1>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+						      <div class="col-md-12">
+						      	<table style="margin: auto;">
+						      		<tr>
+						      			<th width=20%>이름</th>
+						      			<th width=20%>금액</th>
+						      			<th width=30%>날짜</th>
+						      			
+						      		</tr>
+						      		<%for(Cash c : cashList){ %>
+						      			<% int date= Integer.parseInt(c.getCreatedate().substring(8)); %>
+							      		<tr>
+							      			<td><%=rank.get("categoryName") %></td>
+							      			<td><%=c.getCashPrice() %></td>
+							      			<td><%=c.getCreatedate() %></td>
+							      			<td><button type="button" class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/cash/cashOne.jsp?date=<%=date%>&year=<%=year%>&month=<%=month+1%>'">이동</button></td>
+							      		</tr>
+							      	<%} %>	
+						      	</table>
+						      </div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					       
+					      </div>
+					    </div>
+					  </div>
+					</div>
 			
        
     <!-- jquery vendor -->
